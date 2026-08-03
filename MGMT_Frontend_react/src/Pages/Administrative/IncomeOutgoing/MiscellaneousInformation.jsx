@@ -90,15 +90,15 @@ const MiscellaneousInformation = () => {
             }, 100);
           } else {
             setTableData([]);
-            alert("No data found for the selected dates");
+            alert("No data found");
           }
         } else {
           setTableData([]);
-          alert("No data found for the selected dates");
+          alert("No data found");
         }
       } else {
         setTableData([]);
-        alert("No data found for the selected dates");
+        alert("No data found");
       }
     } catch (error) {
       console.error("Error fetching miscellaneous information:", error);
