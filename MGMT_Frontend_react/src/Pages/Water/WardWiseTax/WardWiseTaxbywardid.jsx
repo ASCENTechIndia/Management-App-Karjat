@@ -51,7 +51,6 @@ const WardWiseTaxbywardid = () => {
           Request6: "",
           Request7: "",
         });
-
         let res = [];
         const rawData = response.data?.data;
 
@@ -112,7 +111,11 @@ const WardWiseTaxbywardid = () => {
             });
           }, 100);
         } else {
-          console.warn("No jsondata found in response.");
+          // console.warn("No jsondata found in response.");
+          setTableData([]);
+          setPieChartData([]);
+          setBarGraphData([]);
+          alert("No Data Found");
         }
       } catch (error) {
         console.error("Error fetching MIS data:", error);

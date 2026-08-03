@@ -102,7 +102,7 @@ const WardWiseMrgRegistration = () => {
         }, 100);
       } else {
         setTableData([]);
-        alert("No data found for the selected dates");
+        alert("No data found");
       }
     } catch (error) {
       console.error("Error fetching ward-wise registration data:", error);

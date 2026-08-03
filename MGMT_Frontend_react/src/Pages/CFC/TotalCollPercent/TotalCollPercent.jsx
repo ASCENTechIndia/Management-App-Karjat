@@ -229,8 +229,13 @@ const TotalCollPercent = () => {
           setTableData([]);
           setPieChartData([]);
           setBarGraphData([]);
+          alert("No Data Found");
         }
       } catch (error) {
+        setTableData([]);
+        setPieChartData([]);
+        setBarGraphData([]);
+        alert("Error fetching data");
         console.error("Error fetching collection percentage data:", error);
       } finally {
         setLoading(false);
