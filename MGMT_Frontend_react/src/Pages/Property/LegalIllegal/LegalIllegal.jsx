@@ -50,6 +50,7 @@ const LegalIllegal = () => {
       const jsonData = response.data?.data?.jsondata || [];
 
       if (jsonData?.length > 0) {
+        const sortedData = jsonData.sort((a, b) => a.ward_id - b.ward_id)
         const totalRow = jsonData.reduce(
           (acc, cur) => {
             acc.legal_propcount += Number(cur.legal_propcount);
@@ -65,7 +66,7 @@ const LegalIllegal = () => {
           },
         );
 
-        setTableData([...jsonData, totalRow]);
+        setTableData([...sortedData, totalRow]);
 
         setPieChartData(
           jsonData.map((item) => ({
