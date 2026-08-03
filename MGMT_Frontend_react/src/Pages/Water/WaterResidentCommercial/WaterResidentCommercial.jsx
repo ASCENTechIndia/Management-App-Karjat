@@ -46,8 +46,7 @@ const WaterResidentCommercial = () => {
           Request6: "",
           Request7: "",
         });
-
-        if (response.data?.data?.jsondata) {
+        if (Array.isArray(response.data.data.jsondata) && response.data?.data?.jsondata.length > 0) {
           const res = response.data.data.jsondata;
 
           const formattedData = res.map((item) => ({
@@ -97,15 +96,25 @@ const WaterResidentCommercial = () => {
               block: "center"
             });
           }, 100);
+        } else {
+          setTableData([]);
+          setPieChartData([]);
+          setBarGraphData([]);
+          alert("No Data Found");
         }
       } catch (error) {
         console.error("Error fetching MIS data:", error);
+        setTableData([]);
+        setPieChartData([]);
+        setBarGraphData([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    if (userid && orgId) {
+      fetchData();
+    }
   }, [userid, orgId]);
 
   return (

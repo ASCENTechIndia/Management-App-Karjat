@@ -34,11 +34,8 @@ const ResidentCommerical = () => {
   const headers = ["Ward", "Resident", "Commercial", "Total"];
 
   useEffect(() => {
-    // if (!userid) {
-    //   alert("UserId is not set");
-    //   return;
-    // }
     const fetchData = async () => {
+      if (!userid || !orgId) return;
       try {
         setLoading(true);
         const response = await apiService.post("generic-call", {
@@ -73,7 +70,7 @@ const ResidentCommerical = () => {
               mvalue: 0,
               cvalue: 0,
               tvalue: 0,
-            }
+            },
           );
 
           setTableData([...formattedData, totalRow]);
@@ -82,7 +79,7 @@ const ResidentCommerical = () => {
             res.map((item) => ({
               name: item.ward_name,
               y: item.total_propcount,
-            }))
+            })),
           );
 
           setBarGraphData(
@@ -91,16 +88,24 @@ const ResidentCommerical = () => {
               previous: Number(item.Residential_propcount) || 0,
               current: Number(item.Nonresidential_propcount) || 0,
               total: Number(item.total_propcount) || 0,
-            }))
+            })),
           );
           setTimeout(() => {
             tableRef.current.scrollIntoView({
               behavior: "smooth",
-              block: "center"
+              block: "center",
             });
           }, 100);
+        } else {
+          setTableData([]);
+          setPieChartData([]);
+          setBarGraphData([]);
+          alert("No data found");
         }
       } catch (error) {
+        setTableData([]);
+        setPieChartData([]);
+        setBarGraphData([]);
         console.error("Error fetching MIS data:", error);
       } finally {
         setLoading(false);
@@ -134,8 +139,8 @@ const ResidentCommerical = () => {
               setActiveView("table");
               tableRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<TableIcon className="w-6 h-6" />}
             title="Table View"
@@ -148,8 +153,8 @@ const ResidentCommerical = () => {
               setActiveView("pie");
               pieRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<PieChart className="w-6 h-6" />}
             title="Pie Chart View"
@@ -162,8 +167,8 @@ const ResidentCommerical = () => {
               setActiveView("bar");
               barRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<BarChart3 className="w-6 h-6" />}
             title="Bar Chart View"
@@ -239,4 +244,3 @@ const ResidentCommerical = () => {
 };
 
 export default ResidentCommerical;
-

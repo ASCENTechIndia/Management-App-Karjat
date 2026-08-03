@@ -32,7 +32,7 @@ const LegalIllegal = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user) return;
+      if (!user || !orgId) return;
 
       try {
         setLoading(true);
@@ -49,46 +49,56 @@ const LegalIllegal = () => {
         const response = await apiService.post("generic-call", payload);
         const jsonData = response.data?.data?.jsondata || [];
 
-        const totalRow = jsonData.reduce(
-          (acc, cur) => {
-            acc.legal_propcount += Number(cur.legal_propcount);
-            acc.illlegal_propcount += Number(cur.illlegal_propcount);
-            acc.total_propcount += Number(cur.total_propcount);
-            return acc;
-          },
-          {
-            ward_name: "एकूण",
-            legal_propcount: 0,
-            illlegal_propcount: 0,
-            total_propcount: 0,
-          }
-        );
+        if (jsonData?.length > 0) {
+          const totalRow = jsonData.reduce(
+            (acc, cur) => {
+              acc.legal_propcount += Number(cur.legal_propcount);
+              acc.illlegal_propcount += Number(cur.illlegal_propcount);
+              acc.total_propcount += Number(cur.total_propcount);
+              return acc;
+            },
+            {
+              ward_name: "एकूण",
+              legal_propcount: 0,
+              illlegal_propcount: 0,
+              total_propcount: 0,
+            },
+          );
 
-        setTableData([...jsonData, totalRow]);
+          setTableData([...jsonData, totalRow]);
 
-        setPieChartData(
-          jsonData.map((item) => ({
-            name: item.ward_name,
-            y: item.total_propcount,
-          }))
-        );
+          setPieChartData(
+            jsonData.map((item) => ({
+              name: item.ward_name,
+              y: item.total_propcount,
+            })),
+          );
 
-        setBarGraphData(
-          jsonData.map((item) => ({
-            category: item.ward_name,
-            previous: Number(item.legal_propcount) || 0,
-            current: Number(item.illlegal_propcount) || 0,
-            total: Number(item.total_propcount) || 0,
-          }))
-        );
+          setBarGraphData(
+            jsonData.map((item) => ({
+              category: item.ward_name,
+              previous: Number(item.legal_propcount) || 0,
+              current: Number(item.illlegal_propcount) || 0,
+              total: Number(item.total_propcount) || 0,
+            })),
+          );
 
-        setTimeout(() => {
-          tableRef.current.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
-        }, 100);
+          setTimeout(() => {
+            tableRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }, 100);
+        } else {
+          setTableData([]);
+          setPieChartData([]);
+          setBarGraphData([]);
+          alert("No data found");
+        }
       } catch (error) {
+        setTableData([]);
+        setPieChartData([]);
+        setBarGraphData([]);
         console.error("Error fetching Legal/Illegal data:", error);
       } finally {
         setLoading(false);
@@ -124,8 +134,8 @@ const LegalIllegal = () => {
               setActiveView("table");
               tableRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<TableIcon className="w-6 h-6" />}
             title="Table View"
@@ -138,8 +148,8 @@ const LegalIllegal = () => {
               setActiveView("pie");
               pieRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<PieChart className="w-6 h-6" />}
             title="Pie Chart View"
@@ -152,8 +162,8 @@ const LegalIllegal = () => {
               setActiveView("bar");
               barRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<BarChart3 className="w-6 h-6" />}
             title="Bar Chart View"
@@ -225,4 +235,3 @@ const LegalIllegal = () => {
 };
 
 export default LegalIllegal;
-

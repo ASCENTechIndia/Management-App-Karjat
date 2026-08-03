@@ -30,7 +30,7 @@ const ComplaintDepartmentWise = () => {
 
   const fetchData = async (from, to) => {
     if (!userId || !ulbId) {
-      alert("User ID not found");
+      alert("User ID or Ulb Id not found");
       return;
     }
     try {
@@ -45,7 +45,6 @@ const ComplaintDepartmentWise = () => {
         Request7: "",
       };
       const res = await apiService.post("WTgeneric-call", payload);
-      // console.log("department wise :", res);
       if (
         res?.data?.Success &&
         Array.isArray(res?.data?.data?.jsondata) &&
@@ -71,7 +70,7 @@ const ComplaintDepartmentWise = () => {
           });
         }, 100);
       } else {
-        alert("No record available");
+        alert("No data found");
         setBarData([]);
         setTableDet([]);
       }

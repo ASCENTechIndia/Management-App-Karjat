@@ -33,13 +33,18 @@ const WardWiseTaxbyzoneid = () => {
   const zoneId = location.state?.zoneId || "";
 
   const handleGoBack = () => {
-    navigate("/waterdashboard");
+    navigate("/wardwisetaxbywardid", {
+      state: {
+        wardId,
+        wardName
+      }
+    });
   };
 
   const headers = ["Block", "Arrears", "Current", "Total"];
 
   useEffect(() => {
-    if (!userid || !wardId || !zoneId) return;
+    if (!userid || !wardId || !orgId || !zoneId) return;
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -53,7 +58,7 @@ const WardWiseTaxbyzoneid = () => {
           Request7: "",
         });
 
-        if (response.data?.data?.jsondata) {
+        if (response.data?.data?.jsondata.length > 0) {
           const res = response.data.data.jsondata;
 
           const formattedData = res.map((item) => ({
@@ -105,6 +110,11 @@ const WardWiseTaxbyzoneid = () => {
               block: "center"
             });
           }, 100);
+        } else {
+          setTableData([]);
+          setPieChartData([]);
+          setBarGraphData([]);
+          alert("No Data Found");
         }
       } catch (error) {
         console.error("Error fetching MIS data:", error);
@@ -113,8 +123,10 @@ const WardWiseTaxbyzoneid = () => {
       }
     };
 
-    fetchData();
-  }, [userid, wardId, zoneId]);
+    if (userid && wardId && zoneId && orgId) {
+      fetchData();
+    }
+  }, [userid, wardId, zoneId, orgId]);
 
   return (
     <div className="min-h-screen bg-[#eef4ff] font-sans pb-6">
