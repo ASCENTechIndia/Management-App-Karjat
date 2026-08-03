@@ -12,28 +12,28 @@ import DashboardCard from "../../Components/NewDashboardCard";
 const tilesData = [
   {
     id: 1,
-    title: "Marriage Registration Department",
+    title: "विवाह नोंदणी विभाग",
     icon: FaUniversity,
     route: "Marriage",
     iconBg: "bg-gradient-to-br from-blue-500 to-cyan-400",
   },
   {
     id: 2,
-    title: "Inward Outward Department",
+    title: "आवक-जावक विभाग",
     icon: FaMoneyBillAlt,
     route: "IncomeOutgoing",
     iconBg: "bg-gradient-to-br from-emerald-500 to-green-400",
   },
   {
     id: 3,
-    title: "Birth Death Department",
+    title: "जन्म मृत्यू विभाग",
     icon: FaBuilding,
     route: "BirthAndDeath",
     iconBg: "bg-gradient-to-br from-purple-500 to-violet-400",
   },
   {
     id: 4,
-    title: "Fire Department",
+    title: "अग्निशमन विभाग",
     icon: FaFire,
     route: "Fire",
     iconBg: "bg-gradient-to-br from-orange-500 to-amber-400",
@@ -48,7 +48,7 @@ export default function Administrative() {
   };
 
   const filteredTiles = tilesData.filter((t) =>
-    t.title.toLowerCase().includes(query.toLowerCase())
+    t.title.toLowerCase().includes(query.toLowerCase()),
   );
 
   const openFeature = (route) => {
@@ -68,7 +68,7 @@ export default function Administrative() {
         subtitle="Welcome"
         onBack={handleGoBack}
       />
-      <div className="mx-auto w-[100%] lg:w-[40%]">
+      <div className="mx-auto w-full lg:w-[40%]">
         <section className="container mx-auto md:-mt-3 px-4">
           <div className="grid grid-cols-2 gap-3">
             {tilesData.map((item) => (

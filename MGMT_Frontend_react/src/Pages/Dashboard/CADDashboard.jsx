@@ -17,65 +17,65 @@ import DashboardCard from "../../Components/NewDashboardCard";
 const tilesData = [
   {
     id: 1,
-    title: "Dashboard",
+    title: "डॅशबोर्ड",
     icon: FaChartPie,
     route: "CrmDashBoardOut",
     iconBg: "bg-gradient-to-br from-blue-500 to-cyan-400",
   },
   {
     id: 2,
-    title: "Complaint Summary",
+    title: "तक्रार सारांश",
     icon: FaClipboardList,
     route: "ComplaintSummary2",
     iconBg: "bg-gradient-to-br from-emerald-500 to-green-400",
   },
   {
     id: 3,
-    title: "Complaint Type",
+    title: "तक्रार प्रकार",
     icon: FaExclamationCircle,
     route: "ComplaintType",
     iconBg: "bg-gradient-to-br from-purple-500 to-violet-400",
   },
   {
     id: 4,
-    title: "Department wise Complaint",
+    title: "विभागनिहाय तक्रार",
     icon: FaBuilding,
     route: "ComplaintDepartmentWise",
     iconBg: "bg-gradient-to-br from-orange-500 to-amber-400",
   },
   {
     id: 5,
-    title: "Type of Complaint",
+    title: "तक्रारीचा प्रकार",
     icon: FaListAlt,
     route: "TypeOfComplaint",
     iconBg: "bg-gradient-to-br from-pink-500 to-rose-400",
   },
   {
     id: 6,
-    title: "Report Timely Reflection",
+    title: "वेळेवर अहवाल प्रतिबिंब",
     icon: FaClock,
     route: "ReportTimelyReflection",
     iconBg: "bg-gradient-to-br from-red-500 to-orange-400",
   },
   {
     id: 7,
-    title: "Complaint Report by Period",
+    title: "कालावधीनुसार तक्रार अहवाल",
     icon: FaCalendarAlt,
-    route: "ComplaintReportByPeriod", // incomeplete
+    route: "ComplaintReportByPeriod",
     iconBg: "bg-gradient-to-br from-indigo-500 to-blue-400",
   },
   {
     id: 8,
-    title: "Complaint Report",
+    title: "तक्रार अहवाल",
     icon: FaFileAlt,
     route: "ComplaintGrvRpt",
     iconBg: "bg-gradient-to-br from-teal-500 to-cyan-400",
   },
   {
     id: 9,
-    title: "Re open",
+    title: "पुन्हा उघडा",
     icon: FaRedo,
-    route: "ReOpen", // incomeplete
+    route: "ReOpen",
     iconBg: "bg-gradient-to-br from-amber-500 to-yellow-400",
   },
 ];
@@ -88,7 +88,7 @@ export default function CADDashboard() {
   };
 
   const filteredTiles = tilesData.filter((t) =>
-    t.title.toLowerCase().includes(query.toLowerCase())
+    t.title.toLowerCase().includes(query.toLowerCase()),
   );
 
   const openFeature = (route) => {
@@ -112,7 +112,7 @@ export default function CADDashboard() {
         subtitle="Welcome"
         onBack={handleGoBack}
       />
-      <div className="mx-auto w-[100%] lg:w-[40%]">
+      <div className="mx-auto w-full lg:w-[40%]">
         <section className="container mx-auto md:-mt-3 px-4">
           <div className="grid grid-cols-2 gap-3">
             {tilesData.map((item) => (
