@@ -48,9 +48,9 @@ const DivisionWisePrecentRpt = () => {
 
         const response = await apiService.post("generic-call", payload);
         const jsonData = response.data?.data?.jsondata || [];
-
         if (jsonData?.length > 0) {
-          const numericData = jsonData.map((item) => ({
+          const sortedData = [...jsonData].sort((a, b) => Number(a.wardid) - Number(b.wardid))
+          const numericData = sortedData.map((item) => ({
             ...item,
             dmd: parseFloat(item.dmd) || 0,
             coll: parseFloat(item.coll) || 0,
