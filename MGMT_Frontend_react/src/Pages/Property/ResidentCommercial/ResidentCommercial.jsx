@@ -34,8 +34,8 @@ const ResidentCommerical = () => {
   const headers = ["Ward", "Resident", "Commercial", "Total"];
 
   useEffect(() => {
-    if (!userid || !orgId) return;
     const fetchData = async () => {
+      if (!userid || !orgId) return;
       try {
         setLoading(true);
         const response = await apiService.post("generic-call", {

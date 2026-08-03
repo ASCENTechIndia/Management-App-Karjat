@@ -39,7 +39,7 @@ const TaxCollection = () => {
   const [activeView, setActiveView] = useState("table");
 
   const fetchData = async () => {
-    if (!userid || orgId) return;
+    if (!userid || !orgId) return;
     try {
       setLoading(true);
 
