@@ -30,12 +30,16 @@ const DivisionWisePrctBlock = () => {
   const { wardId, wardName, zoneId, zoneName } = location.state || {};
 
   const handleGoBack = () => {
-    navigate("/propertydashboard");
+    navigate("/DivisionWisePrctPrabhag", {
+      state: { wardId, wardName },
+    });
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user || !wardId || !zoneId) return;
+      if (!user?.userId || !orgId || !wardId || !zoneId) {
+        return;
+      }
 
       try {
         setLoading(true);
@@ -115,7 +119,9 @@ const DivisionWisePrctBlock = () => {
       }
     };
 
-    fetchData();
+    if (user && wardId && zoneId) {
+      fetchData();
+    }
   }, [user, wardId, zoneId]);
 
   const headers = ["Block", "Demand", "Collection", "Arrears", "Percentage"];

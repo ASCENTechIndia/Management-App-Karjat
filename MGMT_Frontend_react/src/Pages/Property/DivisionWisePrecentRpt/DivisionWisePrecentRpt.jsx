@@ -32,12 +32,14 @@ const DivisionWisePrecentRpt = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user || !orgId) return;
+      if (!user?.userId || !orgId) {
+        return;
+      }
 
       try {
         setLoading(true);
         const payload = {
-          Request1: `MobApp$prabhag_demcollper$${user.userId}$${orgId}~~`,
+          Request1: `MobApp$prabhag_demcollper$${user?.userId}$${orgId}~~`,
           Request2: "",
           Request3: "",
           Request4: "",
@@ -118,8 +120,10 @@ const DivisionWisePrecentRpt = () => {
       }
     };
 
-    fetchData();
-  }, [user]);
+    if (user && orgId) {
+      fetchData();
+    }
+  }, [user, orgId]);
 
   const headers = ["Ward", "Demand", "Collection", "Arrears", "Percentage"];
 

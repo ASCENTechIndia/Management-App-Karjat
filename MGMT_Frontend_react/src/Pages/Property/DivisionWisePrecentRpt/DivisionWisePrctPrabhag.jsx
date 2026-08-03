@@ -30,12 +30,12 @@ const DivisionWisePrctPrabhag = () => {
   const { wardId, wardName } = location.state || {};
 
   const handleGoBack = () => {
-    navigate("/propertydashboard");
+    navigate("/DivisionWisePrecentRpt");
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user || !wardId) return;
+      if (!user?.userId || !orgId || !wardId) return;
 
       try {
         setLoading(true);
@@ -115,7 +115,9 @@ const DivisionWisePrctPrabhag = () => {
       }
     };
 
-    fetchData();
+    if (user && wardId) {
+      fetchData();
+    }
   }, [user, wardId]);
 
   const headers = ["Zone", "Demand", "Collection", "Arrears", "Percentage"];
