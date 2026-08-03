@@ -9,24 +9,21 @@ import DashboardCard from "../../../../Components/NewDashboardCard";
 const tilesData = [
   {
     id: 1,
-    title: "Death Registration By Date",
-    // img: "/assets/death-certificate-date.png",
+    title: "दिनांकानुसार मृत्यू नोंदणी",
     icon: CgFileDocument,
     iconBg: "bg-gradient-to-br from-blue-500 to-cyan-400",
     route: "DeathRegistrationByDate",
   },
   {
     id: 2,
-    title: "Death Registration By Ward",
-    // img: "/assets/stamp.png",
+    title: "प्रभागनिहाय मृत्यू नोंदणी",
     icon: GrDocumentUser,
     iconBg: "bg-gradient-to-br from-purple-500 to-violet-400",
     route: "DeathRegistrationByWard",
   },
   {
     id: 3,
-    title: "Search Information",
-    // img: "/assets/seo.png",
+    title: "शोध माहिती",
     icon: HiMiniDocumentMagnifyingGlass,
     route: "DeathSearchInfo",
     iconBg: "bg-gradient-to-br from-red-500 to-orange-400"

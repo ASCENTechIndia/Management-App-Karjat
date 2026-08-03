@@ -7,14 +7,14 @@ import DashboardCard from "../../../Components/NewDashboardCard";
 const tilesData = [
   {
     id: 1,
-    title: "Birth",
+    title: "जन्म",
     icon: FaChild,
     route: "Birth",
     iconBg: "bg-gradient-to-br from-blue-500 to-cyan-400",
   },
   {
     id: 2,
-    title: "Death",
+    title: "मृत्यू",
     icon: FaNotesMedical,
     route: "Death",
     iconBg: "bg-gradient-to-br from-purple-500 to-violet-400",

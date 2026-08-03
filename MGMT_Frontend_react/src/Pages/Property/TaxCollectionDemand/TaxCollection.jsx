@@ -62,6 +62,8 @@ const TaxCollection = () => {
           wardId: item.ward_id,
         }));
 
+        const sortedRes = result.sort((a, b) => a.zone_id - b.zone_id)
+
         const totalRow = result.reduce(
           (acc, cur) => {
             acc.mvalue += Number(cur.mvalue) || 0;
@@ -77,7 +79,7 @@ const TaxCollection = () => {
           },
         );
 
-        setTableData([...result, totalRow]);
+        setTableData([...sortedRes, totalRow]);
 
         setPieData(
           result.map((item) => ({
@@ -116,9 +118,9 @@ const TaxCollection = () => {
   };
 
   useEffect(() => {
-    if (!userid) return;
+    if (!userid || !orgId) return;
     fetchData();
-  }, [userid]);
+  }, [userid, orgId]);
 
   return (
     <div className="min-h-screen bg-[#eef4ff] font-sans pb-6">

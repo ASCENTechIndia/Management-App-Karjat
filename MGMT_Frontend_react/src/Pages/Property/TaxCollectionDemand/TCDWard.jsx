@@ -61,6 +61,8 @@ const TCDWard = () => {
           zoneId: item.block_id,
         }));
 
+        const sortedMapped = mapped.sort((a, b) => a.block_id - b.block_id)
+
         const totalRow = mapped.reduce(
           (acc, cur) => {
             acc.arrears += cur.arrears;
@@ -75,7 +77,7 @@ const TCDWard = () => {
         totalRow.current = Number(totalRow.current.toFixed(2));
         totalRow.total = Number(totalRow.total.toFixed(2));
 
-        setTableData([...mapped, totalRow]);
+        setTableData([...sortedMapped, totalRow]);
 
         setPieData(
           mapped.map((item) => ({

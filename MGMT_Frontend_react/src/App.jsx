@@ -117,7 +117,6 @@ function App() {
             <Route path='/cms' element={<CRMDashboard />} />
 
             {/* first tile */}
-            {/* first tile */}
             <Route path="/dailycollection" element={<Daindin />} />
 
             {/* second tile */}

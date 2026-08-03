@@ -7,16 +7,16 @@ import DashboardCard from "../../../Components/NewDashboardCard";
 const tilesData = [
   {
     id: 1,
-    title: "Miscellaneous Information",
+    title: "विविध माहिती",
     icon: FaFileAlt,
     route: "MiscellaneousInformation",
     iconBg: "bg-gradient-to-br from-blue-500 to-cyan-400",
   },
   {
     id: 2,
-    title: "Outward Information",
+    title: "जावक माहिती",
     icon: FaPaperPlane,
-    route: "OutwardInformation", // doubt three in group
+    route: "OutwardInformation",
     iconBg: "bg-gradient-to-br from-emerald-500 to-green-400",
   },
 ];

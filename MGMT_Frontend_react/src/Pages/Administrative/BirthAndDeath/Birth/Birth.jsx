@@ -7,23 +7,23 @@ import { FaCalendarAlt, FaMapMarkedAlt, FaSearch } from "react-icons/fa";
 const tilesData = [
   {
     id: 1,
-    title: "Birth Registration By Date",
+    title: "दिनांकानुसार जन्म नोंदणी",
     icon: FaCalendarAlt,
     route: "BirthRegistrationByDate",
     iconBg: "bg-gradient-to-br from-blue-500 to-cyan-400",
   },
   {
     id: 2,
-    title: "Birth Registration By Ward",
+    title: "प्रभागनिहाय जन्म नोंदणी",
     icon: FaMapMarkedAlt,
     route: "BirthRegistrationByWard",
     iconBg: "bg-gradient-to-br from-green-500 to-teal-400",
   },
   {
     id: 3,
-    title: "Search Information",
+    title: "शोध माहिती",
     icon: FaSearch,
-    route: "BirthSearchInfo", // 126~126 value doubt
+    route: "BirthSearchInfo",
     iconBg: "bg-gradient-to-br from-purple-500 to-violet-400",
   },
 ];
@@ -58,7 +58,7 @@ export default function Birth() {
         onBack={handleGoBack}
       />
 
-      <div className="mx-auto w-[100%] lg:w-[40%]">
+      <div className="mx-auto w-full lg:w-[40%]">
         <section class="container mx-auto md:-mt-3 px-4">
           <div class="grid grid-cols-2 gap-3">
             {filteredTiles.map((tile) => (

@@ -25,6 +25,7 @@ const DivisionWisePrctPrabhag = () => {
 
   const { user } = useAuth();
   const orgId = user?.data?.OrgId;
+  const userId = user?.userId;
   const location = useLocation();
   const navigate = useNavigate();
   const { wardId, wardName } = location.state || {};
@@ -35,12 +36,12 @@ const DivisionWisePrctPrabhag = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user?.userId || !orgId || !wardId) return;
+      if (!userId || !orgId || !wardId) return;
 
       try {
         setLoading(true);
         const payload = {
-          Request1: `MobApp$prabhag_demcollper$${user.userId}$${orgId}~${wardId}~`,
+          Request1: `MobApp$prabhag_demcollper$${userId}$${orgId}~${wardId}~`,
           Request2: "",
           Request3: "",
           Request4: "",
@@ -109,16 +110,16 @@ const DivisionWisePrctPrabhag = () => {
           alert("No Data Found");
         }
       } catch (error) {
-        console.error("Error fetching data:", error);
+        console.error("Error fetching data:", error.message);
       } finally {
         setLoading(false);
       }
     };
 
-    if (user && wardId) {
+    if (userId && orgId && wardId) {
       fetchData();
     }
-  }, [user, wardId]);
+  }, [userId, orgId, wardId]);
 
   const headers = ["Zone", "Demand", "Collection", "Arrears", "Percentage"];
 

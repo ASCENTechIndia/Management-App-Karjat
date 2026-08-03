@@ -24,7 +24,8 @@ const DivisionWisePrctBlock = () => {
   const { setLoading } = useLoader();
 
   const { user } = useAuth();
-  const orgId = user?.data?.OrgId;
+  const orgId = user?.data?.OrgId || "";
+  const userId = user?.userId || '';
   const location = useLocation();
   const navigate = useNavigate();
   const { wardId, wardName, zoneId, zoneName } = location.state || {};
@@ -35,94 +36,95 @@ const DivisionWisePrctBlock = () => {
     });
   };
 
+  const fetchData = async () => {
+    if (!userId || !orgId || !wardId || !zoneId) {
+      return;
+    }
+
+    try {
+      setLoading(true);
+      const payload = {
+        Request1: `MobApp$prabhag_demcollper$${userId}$${orgId}~${wardId}~${zoneId}`,
+        Request2: "",
+        Request3: "",
+        Request4: "",
+        Request5: "",
+        Request6: "",
+        Request7: "",
+      };
+
+      const response = await apiService.post("generic-call", payload);
+      console.log("res :", response)
+      const jsonData = response.data?.data?.jsondata || [];
+
+      if (jsonData.length > 0) {
+        const sortedData = [...jsonData].sort((a, b) => Number(a.block_id) - Number(b.block_id));
+        const numericData = sortedData.map((item) => ({
+          ...item,
+          dmd: parseFloat(item.dmd) || 0,
+          coll: parseFloat(item.coll) || 0,
+          outst: parseFloat(item.outst) || 0,
+          Per: parseFloat(item.Per) || 0,
+        }));
+
+        const totalRow = numericData.reduce(
+          (acc, cur) => {
+            acc.dmd += cur.dmd;
+            acc.coll += cur.coll;
+            acc.outst += cur.outst;
+            return acc;
+          },
+          { block_name: "एकूण", dmd: 0, coll: 0, outst: 0, Per: 0 }
+        );
+
+        totalRow.Per = totalRow.dmd
+          ? Number(((totalRow.coll / totalRow.dmd) * 100).toFixed(2))
+          : 0;
+        totalRow.dmd = Number(totalRow.dmd.toFixed(2));
+        totalRow.coll = Number(totalRow.coll.toFixed(2));
+        totalRow.outst = Number(totalRow.outst.toFixed(2));
+
+        setTableData([...numericData, totalRow]);
+
+        setPieChartData(
+          numericData.map((item) => ({
+            name: item.block_name,
+            y: item.Per,
+          }))
+        );
+
+        setBarGraphData(
+          numericData.map((item) => ({
+            category: item.block_name,
+            percentage: Number(item.Per) || 0,
+          }))
+        );
+
+        setTimeout(() => {
+          tableRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }, 100);
+      } else {
+        setTableData([]);
+        setPieChartData([]);
+        setBarGraphData([]);
+        alert("No Data Found");
+      }
+
+    } catch (error) {
+      console.error("Error fetching Block data:", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
   useEffect(() => {
-    const fetchData = async () => {
-      if (!user?.userId || !orgId || !wardId || !zoneId) {
-        return;
-      }
 
-      try {
-        setLoading(true);
-        const payload = {
-          Request1: `MobApp$prabhag_demcollper$${user.userId}$${orgId}~${wardId}~${zoneId}`,
-          Request2: "",
-          Request3: "",
-          Request4: "",
-          Request5: "",
-          Request6: "",
-          Request7: "",
-        };
-
-        const response = await apiService.post("generic-call", payload);
-        const jsonData = response.data?.data?.jsondata || [];
-
-        if (jsonData.length > 0) {
-          const sortedData = [...jsonData].sort((a, b) => Number(a.block_id) - Number(b.block_id));
-          const numericData = sortedData.map((item) => ({
-            ...item,
-            dmd: parseFloat(item.dmd) || 0,
-            coll: parseFloat(item.coll) || 0,
-            outst: parseFloat(item.outst) || 0,
-            Per: parseFloat(item.Per) || 0,
-          }));
-
-          const totalRow = numericData.reduce(
-            (acc, cur) => {
-              acc.dmd += cur.dmd;
-              acc.coll += cur.coll;
-              acc.outst += cur.outst;
-              return acc;
-            },
-            { block_name: "एकूण", dmd: 0, coll: 0, outst: 0, Per: 0 }
-          );
-
-          totalRow.Per = totalRow.dmd
-            ? Number(((totalRow.coll / totalRow.dmd) * 100).toFixed(2))
-            : 0;
-          totalRow.dmd = Number(totalRow.dmd.toFixed(2));
-          totalRow.coll = Number(totalRow.coll.toFixed(2));
-          totalRow.outst = Number(totalRow.outst.toFixed(2));
-
-          setTableData([...numericData, totalRow]);
-
-          setPieChartData(
-            numericData.map((item) => ({
-              name: item.block_name,
-              y: item.Per,
-            }))
-          );
-
-          setBarGraphData(
-            numericData.map((item) => ({
-              category: item.block_name,
-              percentage: Number(item.Per) || 0,
-            }))
-          );
-
-          setTimeout(() => {
-            tableRef.current.scrollIntoView({
-              behavior: "smooth",
-              block: "center"
-            });
-          }, 100);
-        } else {
-          setTableData([]);
-          setPieChartData([]);
-          setBarGraphData([]);
-          alert("No Data Found");
-        }
-
-      } catch (error) {
-        console.error("Error fetching Block data:", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    if (user && wardId && zoneId) {
+    if (userId && orgId && wardId && zoneId) {
       fetchData();
     }
-  }, [user, wardId, zoneId]);
+  }, [userId, wardId, orgId, zoneId]);
 
   const headers = ["Block", "Demand", "Collection", "Arrears", "Percentage"];
 
