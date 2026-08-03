@@ -39,10 +39,10 @@ const ResidentCommericalBlock = () => {
   const headers = ["Block", "Resident", "Commercial", "Total"];
 
   useEffect(() => {
-    if (!userid || !wardId || !zoneId) {
-      return;
-    }
     const fetchData = async () => {
+      if (!userid || !wardId || !zoneId) {
+        return;
+      }
       try {
         setLoading(true);
         const response = await apiService.post("generic-call", {
@@ -55,7 +55,7 @@ const ResidentCommericalBlock = () => {
           Request7: "",
         });
 
-        if (response.data?.data?.jsondata) {
+        if (response.data?.data?.jsondata?.length > 0) {
           const res = response.data.data.jsondata;
 
           const formattedData = res.map((item) => ({
@@ -65,6 +65,10 @@ const ResidentCommericalBlock = () => {
             tvalue: item.total_propcount,
             blockId: item.block_id,
           }));
+
+          const sortedFormattedData = formattedData.sort(
+            (a, b) => a.block_id - b.block_id,
+          );
 
           const totalRow = formattedData.reduce(
             (acc, cur) => {
@@ -78,16 +82,16 @@ const ResidentCommericalBlock = () => {
               mvalue: 0,
               cvalue: 0,
               tvalue: 0,
-            }
+            },
           );
 
-          setTableData([...formattedData, totalRow]);
+          setTableData([...sortedFormattedData, totalRow]);
 
           setPieChartData(
             res.map((item) => ({
               name: item.block_name,
               y: item.total_propcount,
-            }))
+            })),
           );
 
           setBarGraphData(
@@ -96,24 +100,34 @@ const ResidentCommericalBlock = () => {
               previous: Number(item.Residential_propcount) || 0,
               current: Number(item.Nonresidential_propcount) || 0,
               total: Number(item.total_propcount) || 0,
-            }))
+            })),
           );
 
           setTimeout(() => {
             tableRef.current.scrollIntoView({
               behavior: "smooth",
-              block: "center"
+              block: "center",
             });
           }, 100);
+        } else {
+          setTableData([]);
+          setBarGraphData([]);
+          setPieChartData([]);
+          alert("No data found");
         }
       } catch (error) {
+        setTableData([]);
+        setBarGraphData([]);
+        setPieChartData([]);
         console.error("Error fetching MIS data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    if (userid && wardId && zoneId) {
+      fetchData();
+    }
   }, [userid, wardId, zoneId]);
 
   return (
@@ -130,7 +144,9 @@ const ResidentCommericalBlock = () => {
           <span>
             <span
               className="text-white/80 cursor-pointer hover:underline"
-              onClick={() => navigate("/ward-details", { state: { wardId, wardName } })}
+              onClick={() =>
+                navigate("/ward-details", { state: { wardId, wardName } })
+              }
             >
               {wardName}
             </span>
@@ -150,8 +166,8 @@ const ResidentCommericalBlock = () => {
               setActiveView("table");
               tableRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<TableIcon className="w-6 h-6" />}
             title="Table View"
@@ -164,8 +180,8 @@ const ResidentCommericalBlock = () => {
               setActiveView("pie");
               pieRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<PieChart className="w-6 h-6" />}
             title="Pie Chart View"
@@ -178,8 +194,8 @@ const ResidentCommericalBlock = () => {
               setActiveView("bar");
               barRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<BarChart3 className="w-6 h-6" />}
             title="Bar Chart View"
