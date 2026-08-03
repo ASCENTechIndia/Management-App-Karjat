@@ -147,7 +147,7 @@ const Login = () => {
           <p className="text-center text-[0.9rem] text-[#777] sm:text-[1rem]" style={{
             marginBottom: "30px"
           }}>
-            Welcome Back
+            Welcome
           </p>
 
           <form onSubmit={handleSubmit}>

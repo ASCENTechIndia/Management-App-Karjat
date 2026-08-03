@@ -34,7 +34,7 @@ const TaxCollectionWardWise = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!userid) return;
+      if (!userid || !orgId) return;
       try {
         setLoading(true);
         const response = await apiService.post("generic-call", {
@@ -70,7 +70,7 @@ const TaxCollectionWardWise = () => {
               mvalue: 0,
               cvalue: 0,
               tvalue: 0,
-            }
+            },
           );
           totalRow.mvalue = totalRow.mvalue.toFixed(2);
           totalRow.cvalue = totalRow.cvalue.toFixed(2);
@@ -81,7 +81,7 @@ const TaxCollectionWardWise = () => {
             res.map((item) => ({
               name: item.ward_name,
               y: item.total,
-            }))
+            })),
           );
 
           setBarGraphData(
@@ -90,18 +90,26 @@ const TaxCollectionWardWise = () => {
               previous: Number(item.arrears) || 0,
               current: Number(item.current) || 0,
               total: Number(item.total) || 0,
-            }))
+            })),
           );
 
           setTimeout(() => {
             tableRef.current.scrollIntoView({
               behavior: "smooth",
-              block: "center"
+              block: "center",
             });
           }, 100);
+        } else {
+          setTableData([]);
+          setPieChartData([]);
+          setBarGraphData([]);
+          alert("No data found");
         }
       } catch (error) {
-        console.error("Error fetching MIS data:", error);
+        setTableData([]);
+        setPieChartData([]);
+        setBarGraphData([]);
+        alert(error.message);
       } finally {
         setLoading(false);
       }
@@ -134,8 +142,8 @@ const TaxCollectionWardWise = () => {
               setActiveView("table");
               tableRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<TableIcon className="w-6 h-6" />}
             title="Table View"
@@ -148,8 +156,8 @@ const TaxCollectionWardWise = () => {
               setActiveView("pie");
               pieRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<PieChart className="w-6 h-6" />}
             title="Pie Chart View"
@@ -162,8 +170,8 @@ const TaxCollectionWardWise = () => {
               setActiveView("bar");
               barRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<BarChart3 className="w-6 h-6" />}
             title="Bar Chart View"
@@ -241,4 +249,3 @@ const TaxCollectionWardWise = () => {
 };
 
 export default TaxCollectionWardWise;
-

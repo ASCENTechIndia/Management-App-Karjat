@@ -59,8 +59,8 @@ const Daindin = () => {
   const [dataCache, setDataCache] = useState({});
 
   const handleSubmit = async (values) => {
-    if (!userId) {
-      alert("UserId is not set");
+    if (!userId || !orgId) {
+      alert("UserId or OrgId is not set");
       return;
     }
     try {
@@ -77,7 +77,6 @@ const Daindin = () => {
         Request6: "",
         Request7: "",
       };
-      console.log("mgmt", payload);
       const res = await apiService.post("generic-call", payload);
       if (
         Array.isArray(res?.data?.data?.jsondata) &&
@@ -107,6 +106,9 @@ const Daindin = () => {
         alert("No data found");
       }
     } catch (error) {
+      setTableData([]);
+      setBarGraphData([]);
+      setChartData([]);
       alert(error.message);
     } finally {
       setLoading(false);

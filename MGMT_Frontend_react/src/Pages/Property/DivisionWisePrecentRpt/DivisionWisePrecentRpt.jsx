@@ -32,7 +32,7 @@ const DivisionWisePrecentRpt = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user) return;
+      if (!user || !orgId) return;
 
       try {
         setLoading(true);
@@ -49,58 +49,70 @@ const DivisionWisePrecentRpt = () => {
         const response = await apiService.post("generic-call", payload);
         const jsonData = response.data?.data?.jsondata || [];
 
-        const numericData = jsonData.map((item) => ({
-          ...item,
-          dmd: parseFloat(item.dmd) || 0,
-          coll: parseFloat(item.coll) || 0,
-          outst: parseFloat(item.outst) || 0,
-          Per: parseFloat(item.Per) || 0,
-        }));
+        if (jsonData?.length > 0) {
+          const numericData = jsonData.map((item) => ({
+            ...item,
+            dmd: parseFloat(item.dmd) || 0,
+            coll: parseFloat(item.coll) || 0,
+            outst: parseFloat(item.outst) || 0,
+            Per: parseFloat(item.Per) || 0,
+          }));
 
-        const totalRow = numericData.reduce(
-          (acc, cur) => {
-            acc.dmd += cur.dmd;
-            acc.coll += cur.coll;
-            acc.outst += cur.outst;
-            return acc;
-          },
-          {
-            wardnm: "एकूण",
-            dmd: 0,
-            coll: 0,
-            outst: 0,
-            Per: 0,
-          }
-        );
-        totalRow.Per = totalRow.dmd ? (totalRow.coll / totalRow.dmd) * 100 : 0;
-        totalRow.dmd = Number(totalRow.dmd.toFixed(2));
-        totalRow.coll = Number(totalRow.coll.toFixed(2));
-        totalRow.outst = Number(totalRow.outst.toFixed(2));
-        totalRow.Per = Number(totalRow.Per.toFixed(2));
+          const totalRow = numericData.reduce(
+            (acc, cur) => {
+              acc.dmd += cur.dmd;
+              acc.coll += cur.coll;
+              acc.outst += cur.outst;
+              return acc;
+            },
+            {
+              wardnm: "एकूण",
+              dmd: 0,
+              coll: 0,
+              outst: 0,
+              Per: 0,
+            },
+          );
+          totalRow.Per = totalRow.dmd
+            ? (totalRow.coll / totalRow.dmd) * 100
+            : 0;
+          totalRow.dmd = Number(totalRow.dmd.toFixed(2));
+          totalRow.coll = Number(totalRow.coll.toFixed(2));
+          totalRow.outst = Number(totalRow.outst.toFixed(2));
+          totalRow.Per = Number(totalRow.Per.toFixed(2));
 
-        setTableData([...numericData, totalRow]);
+          setTableData([...numericData, totalRow]);
 
-        setPieChartData(
-          numericData.map((item) => ({
-            name: item.wardnm,
-            y: item.Per,
-          }))
-        );
+          setPieChartData(
+            numericData.map((item) => ({
+              name: item.wardnm,
+              y: item.Per,
+            })),
+          );
 
-        setBarGraphData(
-          numericData.map((item) => ({
-            category: item.wardnm,
-            percentage: Number(item.Per) || 0,
-          }))
-        );
-        setTimeout(() => {
-          tableRef.current.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
-        }, 100);
+          setBarGraphData(
+            numericData.map((item) => ({
+              category: item.wardnm,
+              percentage: Number(item.Per) || 0,
+            })),
+          );
+          setTimeout(() => {
+            tableRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "center",
+            });
+          }, 100);
+        } else {
+          setTableData([]);
+          setPieChartData([]);
+          setBarGraphData([]);
+          alert("No data found");
+        }
       } catch (error) {
-        console.error("Error fetching percent data:", error);
+        setTableData([]);
+        setPieChartData([]);
+        setBarGraphData([]);
+        alert(error.message);
       } finally {
         setLoading(false);
       }
@@ -135,8 +147,8 @@ const DivisionWisePrecentRpt = () => {
               setActiveView("table");
               tableRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<TableIcon className="w-6 h-6" />}
             title="Table View"
@@ -149,8 +161,8 @@ const DivisionWisePrecentRpt = () => {
               setActiveView("pie");
               pieRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<PieChart className="w-6 h-6" />}
             title="Pie Chart View"
@@ -163,8 +175,8 @@ const DivisionWisePrecentRpt = () => {
               setActiveView("bar");
               barRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<BarChart3 className="w-6 h-6" />}
             title="Bar Chart View"
@@ -236,4 +248,3 @@ const DivisionWisePrecentRpt = () => {
 };
 
 export default DivisionWisePrecentRpt;
-

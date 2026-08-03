@@ -71,11 +71,12 @@ const DefaulterListProp = () => {
           });
         }, 100)
       } else {
-        toast("No data found.");
+        setTableData([])
+        alert("No data found")
       }
     } catch (error) {
-      console.error(error);
-      toast("Error fetching data.");
+      setTableData([])
+      alert(error.message);
     } finally {
       setLoading(false);
     }

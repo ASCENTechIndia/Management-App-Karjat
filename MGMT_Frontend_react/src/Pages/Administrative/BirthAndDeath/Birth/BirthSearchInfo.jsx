@@ -83,7 +83,7 @@ const BirthSearchInfo = () => {
         }, 100);
       } else {
         setTableData([]);
-        alert("No data found for the selected birth date");
+        alert("No data found");
       }
     } catch (error) {
       console.error("Error fetching birth search info:", error);
