@@ -39,7 +39,7 @@ app.use(session({
     httpOnly: true,
     secure: IS_PROD, // Set true in production (HTTPS)
     sameSite: "Strict",
-    domain: ".nagarkaryavalinewuat.com", // Shared domain for all modules
+    domain: ".nagarkaryavalinew.com", // Shared domain for all modules
     maxAge: 60 * 60 * 1000 // 1 hour
   }
 }));
