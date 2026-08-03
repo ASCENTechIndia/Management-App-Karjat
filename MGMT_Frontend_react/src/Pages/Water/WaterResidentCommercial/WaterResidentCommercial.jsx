@@ -104,12 +104,17 @@ const WaterResidentCommercial = () => {
         }
       } catch (error) {
         console.error("Error fetching MIS data:", error);
+        setTableData([]);
+        setPieChartData([]);
+        setBarGraphData([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
+    if (userid && orgId) {
+      fetchData();
+    }
   }, [userid, orgId]);
 
   return (

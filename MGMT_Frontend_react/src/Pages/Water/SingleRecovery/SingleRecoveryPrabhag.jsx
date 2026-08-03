@@ -31,12 +31,12 @@ const SingleRecoveryPrabhag = () => {
   const { wardId, wardName } = location.state || {};
 
   const handleGoBack = () => {
-    navigate("/waterdashboard");
+    navigate("/SingleRecovery");
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user || !wardId) return;
+      if (!user?.userId || !orgId || !wardId) return;
 
       try {
         setLoading(true);
@@ -113,13 +113,19 @@ const SingleRecoveryPrabhag = () => {
 
       } catch (error) {
         console.error("Error fetching data:", error);
+        alert(error.message || "Failed to fetch data");
+        setTableData([]);
+        setBarGraphData([]);
+        setPieChartData([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [user, wardId]);
+    if (user && orgId && wardId) {
+      fetchData();
+    }
+  }, [user, wardId, orgId]);
 
   const headers = ["Zone", "Demand", "Collection", "Arrears", "Percentage"];
 

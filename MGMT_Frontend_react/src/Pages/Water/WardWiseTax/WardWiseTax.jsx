@@ -33,7 +33,7 @@ const WardWiseTax = () => {
   const headers = ["Ward", "Arrears", "Current", "Total"];
 
   useEffect(() => {
-    if (!userid) return;
+    if (!userid || !orgId) return;
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -107,13 +107,17 @@ const WardWiseTax = () => {
         }
       } catch (error) {
         console.error("Error fetching MIS data:", error);
+        setTableData([]);
+        setPieChartData([]);
+        setBarGraphData([]);
       } finally {
         setLoading(false);
       }
     };
-
-    fetchData();
-  }, [userid]);
+    if (userid && orgId) {
+      fetchData();
+    }
+  }, [userid, orgId]);
 
   return (
     <div className="min-h-screen bg-[#eef4ff] font-sans pb-6">

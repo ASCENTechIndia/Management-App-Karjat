@@ -33,7 +33,12 @@ const LegalBlock = () => {
   const { wardId, wardName, zoneId, zoneName } = location.state || {};
 
   const handleGoBack = () => {
-    navigate("/waterdashboard");
+    navigate("/WaterActivePrabhag", {
+      state: {
+        wardId,
+        wardName
+      }
+    });
   };
 
   useEffect(() => {
@@ -116,8 +121,10 @@ const LegalBlock = () => {
       }
     };
 
-    if (userId && wardId && zoneId) fetchData();
-  }, [userId, wardId, zoneId]);
+    if (userId && wardId && zoneId && orgId) {
+      fetchData();
+    }
+  }, [userId, wardId, zoneId, orgId]);
 
   const headers = ["Block", "Active", "Inactive", "Total"];
 
@@ -133,18 +140,18 @@ const LegalBlock = () => {
         subtitle="Ward / Zone"
         title={
           <>
-          <span
-            className="cursor-pointer hover:underline"
-            onClick={() => navigate("/WaterActivePrabhag", {
-              state: {
-                wardId,
-                wardName
-              }
-            })}
-          >
-           {`${wardName || ""}`}
-          </span>
-          {`${zoneName ? ` / ${zoneName}` : ""}`}
+            <span
+              className="cursor-pointer hover:underline"
+              onClick={() => navigate("/WaterActivePrabhag", {
+                state: {
+                  wardId,
+                  wardName
+                }
+              })}
+            >
+              {`${wardName || ""}`}
+            </span>
+            {`${zoneName ? ` / ${zoneName}` : ""}`}
           </>
         }
         infoText="All properties"

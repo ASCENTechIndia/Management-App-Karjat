@@ -31,13 +31,13 @@ const WardWiseTaxbywardid = () => {
   const wardId = location.state?.wardId || "";
 
   const handleGoBack = () => {
-    navigate("/waterdashboard");
+    navigate("/WardWiseTax");
   };
 
   const headers = ["Zone", "Arrears", "Current", "Total"];
 
   useEffect(() => {
-    if (!userid || !wardId) return;
+    if (!userid || !wardId || !orgId) return;
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -124,8 +124,10 @@ const WardWiseTaxbywardid = () => {
       }
     };
 
-    fetchData();
-  }, [userid, wardId]);
+    if (userid && wardId && orgId) {
+      fetchData();
+    }
+  }, [userid, wardId, orgId]);
 
   return (
     <div className="min-h-screen bg-[#eef4ff] font-sans pb-6">

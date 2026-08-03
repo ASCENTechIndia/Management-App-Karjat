@@ -34,7 +34,7 @@ const LegalIllegal = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user) return;
+      if (!user?.userId || !orgId) return;
 
       try {
         setLoading(true);
@@ -105,8 +105,10 @@ const LegalIllegal = () => {
       }
     };
 
-    fetchData();
-  }, [user]);
+    if (user?.userId && orgId) {
+      fetchData();
+    }
+  }, [user, orgId]);
 
   const headers = ["Ward", "Active", "Inactive", "Total"];
 

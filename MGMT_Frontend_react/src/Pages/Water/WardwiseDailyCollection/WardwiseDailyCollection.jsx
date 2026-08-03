@@ -101,6 +101,9 @@ const WardwiseDailyCollection = () => {
       }
     } catch (error) {
       console.error(error);
+      setTableData([]);
+      setBarGraphData([]);
+      setChartData([]);
       alert(error.message);
     } finally {
       setLoading(false);

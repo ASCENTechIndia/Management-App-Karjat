@@ -31,12 +31,17 @@ const SingleRecoveryBlock = () => {
   const { wardId, wardName, zoneId, zoneName } = location.state || {};
 
   const handleGoBack = () => {
-    navigate("/waterdashboard");
+    navigate("/SingleRecoveryPrabhag", {
+      state: {
+        wardId,
+        wardName
+      }
+    });
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user || !wardId || !zoneId) return;
+      if (!user?.userId || !orgId || !wardId || !zoneId) return;
 
       try {
         setLoading(true);
@@ -115,8 +120,10 @@ const SingleRecoveryBlock = () => {
       }
     };
 
-    fetchData();
-  }, [user, wardId, zoneId]);
+    if (user && wardId && zoneId && orgId) {
+      fetchData();
+    }
+  }, [user, wardId, zoneId, orgId]);
 
   const headers = ["Block", "Demand", "Collection", "Arrears", "Percentage"];
 

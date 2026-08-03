@@ -33,7 +33,7 @@ const SingleRecovery = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user) return;
+      if (!user?.userId || !orgId) return;
 
       try {
         setLoading(true);
@@ -111,13 +111,19 @@ const SingleRecovery = () => {
 
       } catch (error) {
         console.error("Error fetching percent data:", error);
+        alert(error.message || "Failed to fetch data");
+        setTableData([]);
+        setBarGraphData([]);
+        setPieChartData([]);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchData();
-  }, [user]);
+    if (user?.userId && orgId) {
+      fetchData();
+    }
+  }, [user, orgId]);
 
   const headers = ["Ward", "Demand", "Collection", "Arrears", "Percentage"];
 
