@@ -53,53 +53,61 @@ const SingleRecoveryBlock = () => {
         const response = await apiService.post("WTgeneric-call", payload);
         const jsonData = response.data?.data?.jsondata || [];
 
-        const numericData = jsonData.map((item) => ({
-          ...item,
-          demand: parseFloat(item.dmd) || 0,
-          totcol: parseFloat(item.coll) || 0,
-          outstd: parseFloat(item.outst) || 0,
-          colper: parseFloat(item.Per) || 0,
-        }));
+        if (jsonData.length > 0) {
+          const numericData = jsonData.map((item) => ({
+            ...item,
+            demand: parseFloat(item.dmd) || 0,
+            totcol: parseFloat(item.coll) || 0,
+            outstd: parseFloat(item.outst) || 0,
+            colper: parseFloat(item.Per) || 0,
+          }));
 
-        const totalRow = numericData.reduce(
-          (acc, cur) => {
-            acc.demand += cur.demand;
-            acc.totcol += cur.totcol;
-            acc.outstd += cur.outstd;
-            return acc;
-          },
-          { block_name: "एकूण", demand: 0, totcol: 0, outstd: 0, colper: 0 }
-        );
+          const totalRow = numericData.reduce(
+            (acc, cur) => {
+              acc.demand += cur.demand;
+              acc.totcol += cur.totcol;
+              acc.outstd += cur.outstd;
+              return acc;
+            },
+            { block_name: "एकूण", demand: 0, totcol: 0, outstd: 0, colper: 0 }
+          );
 
-        totalRow.colper = totalRow.demand
-          ? Number(((totalRow.totcol / totalRow.demand) * 100).toFixed(2))
-          : 0;
-        totalRow.demand = Number(totalRow.demand.toFixed(2));
-        totalRow.totcol = Number(totalRow.totcol.toFixed(2));
-        totalRow.outstd = Number(totalRow.outstd.toFixed(2));
+          totalRow.colper = totalRow.demand
+            ? Number(((totalRow.totcol / totalRow.demand) * 100).toFixed(2))
+            : 0;
+          totalRow.demand = Number(totalRow.demand.toFixed(2));
+          totalRow.totcol = Number(totalRow.totcol.toFixed(2));
+          totalRow.outstd = Number(totalRow.outstd.toFixed(2));
 
-        setTableData([...numericData, totalRow]);
+          setTableData([...numericData, totalRow]);
 
-        setPieChartData(
-          numericData.map((item) => ({
-            name: item.block_name,
-            y: item.colper,
-          }))
-        );
+          setPieChartData(
+            numericData.map((item) => ({
+              name: item.block_name,
+              y: item.colper,
+            }))
+          );
 
-        setBarGraphData(
-          numericData.map((item) => ({
-            category: item.block_name,
-            percentage: Number(item.colper) || 0,
-          }))
-        );
+          setBarGraphData(
+            numericData.map((item) => ({
+              category: item.block_name,
+              percentage: Number(item.colper) || 0,
+            }))
+          );
 
-        setTimeout(() => {
-          tableRef.current.scrollIntoView({
-            behavior: "smooth",
-            block: "center"
-          });
-        }, 100);
+          setTimeout(() => {
+            tableRef.current.scrollIntoView({
+              behavior: "smooth",
+              block: "center"
+            });
+          }, 100);
+        } else {
+          setTableData([]);
+          setPieChartData([]);
+          setBarGraphData([]);
+          alert("No Data Found");
+        }
+
       } catch (error) {
         console.error("Error fetching Block data:", error);
       } finally {

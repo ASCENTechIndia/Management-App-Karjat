@@ -92,7 +92,10 @@ const LegalIllegal = () => {
             });
           }, 100);
         } else {
-          alert("No record found");
+          setTableData([]);
+          setPieChartData([]);
+          setBarGraphData([]);
+          alert("No data found");
         }
       } catch (error) {
         console.error("Error fetching Legal/Illegal data:", error);

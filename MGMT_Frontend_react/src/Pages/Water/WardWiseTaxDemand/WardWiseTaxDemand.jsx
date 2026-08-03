@@ -255,6 +255,7 @@ const WardWiseTaxDemand = () => {
         setTableData([]);
         setBarGraphData([]);
         setChartData([]);
+        alert("No Data Found");
       }
     }
   };

@@ -53,7 +53,7 @@ const WardWiseTaxbyzoneid = () => {
           Request7: "",
         });
 
-        if (response.data?.data?.jsondata) {
+        if (response.data?.data?.jsondata.length > 0) {
           const res = response.data.data.jsondata;
 
           const formattedData = res.map((item) => ({
@@ -105,6 +105,11 @@ const WardWiseTaxbyzoneid = () => {
               block: "center"
             });
           }, 100);
+        } else {
+          setTableData([]);
+          setPieChartData([]);
+          setBarGraphData([]);
+          alert("No Data Found");
         }
       } catch (error) {
         console.error("Error fetching MIS data:", error);
