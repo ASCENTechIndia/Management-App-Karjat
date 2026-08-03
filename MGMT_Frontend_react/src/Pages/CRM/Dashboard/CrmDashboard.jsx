@@ -284,7 +284,7 @@ const CrmDashBoardOut = () => {
   }, []);
 
   const handleGoBack = () => {
-    navigate("/home");
+    navigate("/CADDashboard");
   };
 
   return (
