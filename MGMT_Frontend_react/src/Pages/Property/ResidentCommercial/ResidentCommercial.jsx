@@ -112,8 +112,10 @@ const ResidentCommerical = () => {
       }
     };
 
-    if (userid) fetchData();
-  }, [userid]);
+    if(userid && orgId){
+      fetchData();
+    }
+  }, [userid, orgId]);
 
   return (
     <div className="min-h-screen bg-[#eef4ff] font-sans pb-6">

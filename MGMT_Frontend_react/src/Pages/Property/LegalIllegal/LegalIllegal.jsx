@@ -24,6 +24,7 @@ const LegalIllegal = () => {
   const { setLoading } = useLoader();
   const { user } = useAuth();
   const orgId = user?.data?.OrgId;
+  const userId = user?.userId;
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -32,12 +33,12 @@ const LegalIllegal = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user || !orgId) return;
+      if (!userId || !orgId) return;
 
       try {
         setLoading(true);
         const payload = {
-          Request1: `MobApp$MIS_legalillgal$${user.userId}$${orgId}~~`,
+          Request1: `MobApp$MIS_legalillgal$${userId}$${orgId}~~`,
           Request2: "",
           Request3: "",
           Request4: "",
@@ -106,7 +107,7 @@ const LegalIllegal = () => {
     };
 
     fetchData();
-  }, [user]);
+  }, [userId, orgId]);
 
   const headers = ["Ward", "Legal", "Illegal", "Total"];
 

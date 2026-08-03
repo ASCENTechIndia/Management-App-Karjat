@@ -24,6 +24,7 @@ const DivisionWisePrecentRpt = () => {
   const { setLoading } = useLoader();
   const { user } = useAuth();
   const orgId = user?.data?.OrgId;
+  const userId = user?.userId
   const navigate = useNavigate();
 
   const handleGoBack = () => {
@@ -32,12 +33,12 @@ const DivisionWisePrecentRpt = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user || !orgId) return;
+      if (!userId || !orgId) return;
 
       try {
         setLoading(true);
         const payload = {
-          Request1: `MobApp$prabhag_demcollper$${user.userId}$${orgId}~~`,
+          Request1: `MobApp$prabhag_demcollper$${userId}$${orgId}~~`,
           Request2: "",
           Request3: "",
           Request4: "",
@@ -119,7 +120,7 @@ const DivisionWisePrecentRpt = () => {
     };
 
     fetchData();
-  }, [user]);
+  }, [userId, orgId]);
 
   const headers = ["Ward", "Demand", "Collection", "Arrears", "Percentage"];
 

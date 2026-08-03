@@ -83,8 +83,9 @@ const Daindin = () => {
         res?.data?.data?.jsondata?.length > 0
       ) {
         setInitialView(true);
-        const data = res?.data?.data?.jsondata;
-        setTableData(data);
+        const data = res?.data?.data?.jsondata || [];
+        const sortedData = data.sort((a, b) => a.ward_id - b.ward_id)
+        setTableData(sortedData);
         const bothChartData = data.map((data) => ({
           value: Number(data.total),
           label: data.ward_name,
@@ -156,7 +157,8 @@ const Daindin = () => {
             Current: "current",
             Total: "total",
           });
-          setTableData(data);
+          const sortedData = data.sort((a, b) => a.zone_id - b.zone_id)
+          setTableData(sortedData);
           const bothChartData = data.map((data) => ({
             value: Number(data.total),
             label: data.zone_name,
@@ -220,6 +222,7 @@ const Daindin = () => {
             Current: "current",
             Total: "total",
           });
+          const sortedData = data.sort((a, b) => a.block_id - b.block_id)
           setTableData(data);
           const bothChartData = data.map((data) => ({
             value: Number(data.total),

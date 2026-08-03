@@ -116,9 +116,9 @@ const TaxCollection = () => {
   };
 
   useEffect(() => {
-    if (!userid) return;
+    if (!userid || !orgId) return;
     fetchData();
-  }, [userid]);
+  }, [userid, orgId]);
 
   return (
     <div className="min-h-screen bg-[#eef4ff] font-sans pb-6">
