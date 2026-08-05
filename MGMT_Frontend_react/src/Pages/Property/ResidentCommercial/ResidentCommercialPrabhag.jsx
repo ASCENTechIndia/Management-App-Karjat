@@ -37,9 +37,8 @@ const ResidentCommericalPrabhag = () => {
   const headers = ["Zone", "Resident", "Commercial", "Total"];
 
   useEffect(() => {
+    if (!userid || !wardId) return;
     const fetchData = async () => {
-      if (!userid || !wardId || !orgId) return;
-
       try {
         setLoading(true);
         const response = await apiService.post("generic-call", {
@@ -52,8 +51,8 @@ const ResidentCommericalPrabhag = () => {
           Request7: "",
         });
 
-        if (response.data?.data?.jsondata?.length > 0) {
-          const res = response.data.data.jsondata || [];
+        if (response.data?.data?.jsondata) {
+          const res = response.data.data.jsondata;
 
           const formattedData = res.map((item) => ({
             zone: item.zone_name,
@@ -62,10 +61,6 @@ const ResidentCommericalPrabhag = () => {
             tvalue: item.total_propcount,
             zoneId: item.zone_id,
           }));
-
-          const sortedFormatedData = formattedData.sort(
-            (a, b) => a.zone_id - b.zone_id,
-          );
 
           const totalRow = formattedData.reduce(
             (acc, cur) => {
@@ -79,16 +74,16 @@ const ResidentCommericalPrabhag = () => {
               mvalue: 0,
               cvalue: 0,
               tvalue: 0,
-            },
+            }
           );
 
-          setTableData([...sortedFormatedData, totalRow]);
+          setTableData([...formattedData, totalRow]);
 
           setPieChartData(
             res.map((item) => ({
               name: item.zone_name,
               y: item.total_propcount,
-            })),
+            }))
           );
 
           setBarGraphData(
@@ -97,35 +92,25 @@ const ResidentCommericalPrabhag = () => {
               previous: Number(item.Residential_propcount) || 0,
               current: Number(item.Nonresidential_propcount) || 0,
               total: Number(item.total_propcount) || 0,
-            })),
+            }))
           );
 
           setTimeout(() => {
             tableRef.current.scrollIntoView({
               behavior: "smooth",
-              block: "center",
+              block: "center"
             });
           }, 100);
-        } else {
-          setTableData([]);
-          setPieChartData([]);
-          setBarGraphData([]);
-          alert("No data found");
         }
       } catch (error) {
-        setTableData([]);
-        setPieChartData([]);
-        setBarGraphData([]);
         console.error("Error fetching MIS data:", error);
       } finally {
         setLoading(false);
       }
     };
 
-    if (userid && wardId && orgId) {
-      fetchData();
-    }
-  }, [userid, wardId, orgId]);
+    fetchData();
+  }, [userid, wardId]);
 
   return (
     <div className="min-h-screen bg-[#eef4ff] font-sans pb-6">
@@ -161,8 +146,8 @@ const ResidentCommericalPrabhag = () => {
               setActiveView("table");
               tableRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center",
-              });
+                block: "center"
+              })
             }}
             icon={<TableIcon className="w-6 h-6" />}
             title="Table View"
@@ -175,8 +160,8 @@ const ResidentCommericalPrabhag = () => {
               setActiveView("pie");
               pieRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center",
-              });
+                block: "center"
+              })
             }}
             icon={<PieChart className="w-6 h-6" />}
             title="Pie Chart View"
@@ -189,8 +174,8 @@ const ResidentCommericalPrabhag = () => {
               setActiveView("bar");
               barRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center",
-              });
+                block: "center"
+              })
             }}
             icon={<BarChart3 className="w-6 h-6" />}
             title="Bar Chart View"
@@ -267,3 +252,4 @@ const ResidentCommericalPrabhag = () => {
 };
 
 export default ResidentCommericalPrabhag;
+

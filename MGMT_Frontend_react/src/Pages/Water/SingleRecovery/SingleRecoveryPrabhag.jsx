@@ -31,12 +31,12 @@ const SingleRecoveryPrabhag = () => {
   const { wardId, wardName } = location.state || {};
 
   const handleGoBack = () => {
-    navigate("/SingleRecovery");
+    navigate("/waterdashboard");
   };
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user?.userId || !orgId || !wardId) return;
+      if (!user || !wardId) return;
 
       try {
         setLoading(true);
@@ -53,79 +53,64 @@ const SingleRecoveryPrabhag = () => {
         const response = await apiService.post("WTgeneric-call", payload);
         const jsonData = response.data?.data?.jsondata || [];
 
-        if (jsonData.length > 0) {
-          const numericData = jsonData.map((item) => ({
-            ...item,
-            dmd: parseFloat(item.dmd) || 0,
-            coll: parseFloat(item.coll) || 0,
-            outst: parseFloat(item.outst) || 0,
-            Per: parseFloat(item.Per) || 0,
-          }));
+        const numericData = jsonData.map((item) => ({
+          ...item,
+          dmd: parseFloat(item.dmd) || 0,
+          coll: parseFloat(item.coll) || 0,
+          outst: parseFloat(item.outst) || 0,
+          Per: parseFloat(item.Per) || 0,
+        }));
 
-          const totalRow = numericData.reduce(
-            (acc, cur) => {
-              acc.dmd += cur.dmd;
-              acc.coll += cur.coll;
-              acc.outst += cur.outst;
-              return acc;
-            },
-            { zone_name: "एकूण", dmd: 0, coll: 0, outst: 0, Per: 0 }
-          );
+        const totalRow = numericData.reduce(
+          (acc, cur) => {
+            acc.dmd += cur.dmd;
+            acc.coll += cur.coll;
+            acc.outst += cur.outst;
+            return acc;
+          },
+          { zone_name: "एकूण", dmd: 0, coll: 0, outst: 0, Per: 0 }
+        );
 
-          totalRow.Per = totalRow.dmd
-            ? Number(((totalRow.coll / totalRow.dmd) * 100).toFixed(2))
-            : 0;
+        totalRow.Per = totalRow.dmd
+          ? Number(((totalRow.coll / totalRow.dmd) * 100).toFixed(2))
+          : 0;
 
-          totalRow.dmd = Number(totalRow.dmd.toFixed(2));
-          totalRow.coll = Number(totalRow.coll.toFixed(2));
-          totalRow.outst = Number(totalRow.outst.toFixed(2));
+        totalRow.dmd = Number(totalRow.dmd.toFixed(2));
+        totalRow.coll = Number(totalRow.coll.toFixed(2));
+        totalRow.outst = Number(totalRow.outst.toFixed(2));
 
-          setTableData([...numericData, totalRow]);
+        setTableData([...numericData, totalRow]);
 
-          setPieChartData(
-            numericData.map((item) => ({
-              name: item.zone_name,
-              y: item.Per,
-            }))
-          );
+        setPieChartData(
+          numericData.map((item) => ({
+            name: item.zone_name,
+            y: item.Per,
+          }))
+        );
 
-          setBarGraphData(
-            numericData.map((item) => ({
-              category: item.zone_name,
-              percentage: Number(item.Per) || 0,
-            }))
-          );
+        setBarGraphData(
+          numericData.map((item) => ({
+            category: item.zone_name,
+            percentage: Number(item.Per) || 0,
+          }))
+        );
 
-          setTimeout(() => {
-            tableRef.current.scrollIntoView({
-              behavior: "smooth",
-              block: "center"
-            });
-          }, 100);
-        } else {
-          setTableData([]);
-          setBarGraphData([]);
-          setPieChartData([]);
-          alert("No Data Found");
-        }
-
-
+        setTimeout(() => {
+          tableRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }, 100);
 
       } catch (error) {
         console.error("Error fetching data:", error);
-        alert(error.message || "Failed to fetch data");
-        setTableData([]);
-        setBarGraphData([]);
-        setPieChartData([]);
       } finally {
         setLoading(false);
       }
     };
 
-    if (user && orgId && wardId) {
-      fetchData();
-    }
-  }, [user, wardId, orgId]);
+    fetchData();
+  }, [user, wardId]);
 
   const headers = ["Zone", "Demand", "Collection", "Arrears", "Percentage"];
 

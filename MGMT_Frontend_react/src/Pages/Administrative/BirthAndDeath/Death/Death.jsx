@@ -9,21 +9,24 @@ import DashboardCard from "../../../../Components/NewDashboardCard";
 const tilesData = [
   {
     id: 1,
-    title: "दिनांकानुसार मृत्यू नोंदणी",
+    title: "Death Registration By Date",
+    // img: "/assets/death-certificate-date.png",
     icon: CgFileDocument,
     iconBg: "bg-gradient-to-br from-blue-500 to-cyan-400",
     route: "DeathRegistrationByDate",
   },
   {
     id: 2,
-    title: "प्रभागनिहाय मृत्यू नोंदणी",
+    title: "Death Registration By Ward",
+    // img: "/assets/stamp.png",
     icon: GrDocumentUser,
     iconBg: "bg-gradient-to-br from-purple-500 to-violet-400",
     route: "DeathRegistrationByWard",
   },
   {
     id: 3,
-    title: "माहिती शोधा",
+    title: "Search Information",
+    // img: "/assets/seo.png",
     icon: HiMiniDocumentMagnifyingGlass,
     route: "DeathSearchInfo",
     iconBg: "bg-gradient-to-br from-red-500 to-orange-400"
@@ -80,21 +83,21 @@ export default function Death() {
         </div>
       </section> */}
 
-      <div className="mx-auto w-[100%] lg:w-[40%]">
-        <section class="container mx-auto md:-mt-3 px-4">
-          <div class="grid grid-cols-2 gap-3">
-            {tilesData.map((item) => (
-              <DashboardCard
-                onClick={() => openFeature(item.route)}
-                icon={item.icon}
-                title={item.title}
-                iconBg={item.iconBg}
-              />
-            ))}
-
-          </div>
-        </section>
-      </div>
+       <div className="mx-auto w-[100%] lg:w-[40%]">
+              <section class="container mx-auto md:-mt-3 px-4">
+                <div class="grid grid-cols-2 gap-3">
+                  {tilesData.map((item) => (
+                    <DashboardCard
+                      onClick={() => openFeature(item.route)}
+                      icon={item.icon}
+                      title={item.title}
+                      iconBg={item.iconBg}
+                    />
+                  ))}
+      
+                </div>
+              </section>
+            </div>
 
     </div>
   );

@@ -7,14 +7,14 @@ import DashboardCard from "../../../Components/NewDashboardCard";
 const tilesData = [
   {
     id: 1,
-    title: "तक्रारीचे प्रकार",
+    title: "Types Of Complaint",
     icon: FaExclamationTriangle,
     route: "TypesOfComplaint",
     iconBg: "bg-gradient-to-br from-red-500 to-orange-400",
   },
   {
     id: 2,
-    title: "प्रकारानुसार तक्रार",
+    title: "By Types Of Complaint",
     icon: FaChartBar,
     route: "ComplaintType2",
     iconBg: "bg-gradient-to-br from-orange-500 to-amber-400",

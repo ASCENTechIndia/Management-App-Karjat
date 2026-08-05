@@ -161,13 +161,8 @@ const ZoneWiseTaxColl = () => {
           setTableData([]);
           setPieChartData([]);
           setBarGraphData([]);
-          alert("No Data Found");
         }
       } catch (error) {
-        setTableData([]);
-        setPieChartData([]);
-        setBarGraphData([]);
-        alert("Error fetching data");
         console.error("Error fetching daily collection data:", error);
       } finally {
         setLoading(false);

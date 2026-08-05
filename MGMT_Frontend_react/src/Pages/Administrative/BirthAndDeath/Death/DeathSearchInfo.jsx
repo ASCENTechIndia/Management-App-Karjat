@@ -83,7 +83,7 @@ const DeathSearchInfo = () => {
         }, 100);
       } else {
         setTableData([]);
-        alert("No data found");
+        alert("No data found for the selected dates");
       }
     } catch (error) {
       console.error("Error fetching miscellaneous information:", error);

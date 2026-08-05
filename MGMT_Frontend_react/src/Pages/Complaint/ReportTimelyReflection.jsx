@@ -53,6 +53,7 @@ const ReportTimelyReflection = () => {
         Request7: "",
       };
       const res = await apiService.post("WTgeneric-call", payload);
+      // console.log("res ", res);
       if (res?.data?.Success && res?.data?.data?.length > 0) {
         const strArr = res.data.data.split("|");
         const data = strArr.map((item) => {
@@ -80,12 +81,10 @@ const ReportTimelyReflection = () => {
       } else {
         setTableData([]);
         setCurrentView("summary");
-        alert("No data found")
       }
     } catch (error) {
       console.error("Error fetching summary data:", error);
       setTableData([]);
-      setCurrentView("summary");
       alert(error.message || "Failed to fetch data");
     } finally {
       setLoading(false);

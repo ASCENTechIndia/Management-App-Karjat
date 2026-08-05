@@ -183,7 +183,6 @@ const ReOpen = () => {
         }, 100);
       } else {
         setLevel1Data([]);
-        alert("No data found")
       }
     } catch (error) {
       console.error("Error fetching level 1 data:", error);
@@ -219,7 +218,6 @@ const ReOpen = () => {
         }, 100);
       } else {
         setLevel2Data([]);
-        alert("No data found")
       }
     } catch (error) {
       console.error("Error fetching level 2 data:", error);
@@ -254,7 +252,6 @@ const ReOpen = () => {
         }, 100);
       } else {
         setLevel3Data([]);
-        alert("No data found")
       }
     } catch (error) {
       console.error("Error fetching level 3 data:", error);

@@ -1,6 +1,10 @@
 import React, { useState, useEffect, useRef } from "react";
 import Table from "../../../Components/Table/Table";
-import { Table as TableIcon, PieChart, BarChart3 } from "lucide-react";
+import {
+  Table as TableIcon,
+  PieChart,
+  BarChart3,
+} from "lucide-react";
 import PieChartComponent from "../../Property/Tax/PieChartComponent";
 import StackedBarGraph from "../../../Components/StackedBarGraph";
 import apiService from "../../../../apiService";
@@ -39,7 +43,6 @@ const TaxCollection = () => {
   const [activeView, setActiveView] = useState("table");
 
   const fetchData = async () => {
-    if (!userid || !orgId) return;
     try {
       setLoading(true);
 
@@ -62,8 +65,6 @@ const TaxCollection = () => {
           wardId: item.ward_id,
         }));
 
-        const sortedRes = result.sort((a, b) => a.zone_id - b.zone_id)
-
         const totalRow = result.reduce(
           (acc, cur) => {
             acc.mvalue += Number(cur.mvalue) || 0;
@@ -76,16 +77,16 @@ const TaxCollection = () => {
             mvalue: 0,
             cvalue: 0,
             tvalue: 0,
-          },
+          }
         );
 
-        setTableData([...sortedRes, totalRow]);
+        setTableData([...result, totalRow]);
 
         setPieData(
           result.map((item) => ({
             name: item.prabhag,
             y: Number(item.tvalue),
-          })),
+          }))
         );
 
         setBarData(
@@ -93,34 +94,26 @@ const TaxCollection = () => {
             category: item.prabhag,
             previous: Number(item.mvalue),
             current: Number(item.cvalue),
-          })),
+          }))
         );
         setTimeout(() => {
           tableRef.current.scrollIntoView({
             behavior: "smooth",
-            block: "center",
+            block: "center"
           });
         }, 100);
-      } else {
-        setTableData([]);
-        setBarData([]);
-        setPieData([]);
-        alert("No data found");
       }
     } catch (error) {
-      setTableData([]);
-      setBarData([]);
-      setPieData([]);
-      alert(error.message);
+      console.error("Error fetching data:", error);
     } finally {
       setLoading(false);
     }
   };
 
   useEffect(() => {
-    if (!userid || !orgId) return;
+    if (!userid) return;
     fetchData();
-  }, [userid, orgId]);
+  }, [userid]);
 
   return (
     <div className="min-h-screen bg-[#eef4ff] font-sans pb-6">
@@ -146,8 +139,8 @@ const TaxCollection = () => {
               setActiveView("table");
               tableRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center",
-              });
+                block: "center"
+              })
             }}
             icon={<TableIcon className="w-6 h-6" />}
             title="Table View"
@@ -160,8 +153,8 @@ const TaxCollection = () => {
               setActiveView("pie");
               pieRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center",
-              });
+                block: "center"
+              })
             }}
             icon={<PieChart className="w-6 h-6" />}
             title="Pie Chart View"
@@ -174,8 +167,8 @@ const TaxCollection = () => {
               setActiveView("bar");
               barRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center",
-              });
+                block: "center"
+              })
             }}
             icon={<BarChart3 className="w-6 h-6" />}
             title="Bar Chart View"
@@ -248,8 +241,10 @@ const TaxCollection = () => {
           {/* )} */}
         </div>
       </section>
+
     </div>
   );
 };
 
 export default TaxCollection;
+

@@ -31,13 +31,13 @@ const WardWiseTaxbywardid = () => {
   const wardId = location.state?.wardId || "";
 
   const handleGoBack = () => {
-    navigate("/WardWiseTax");
+    navigate("/waterdashboard");
   };
 
   const headers = ["Zone", "Arrears", "Current", "Total"];
 
   useEffect(() => {
-    if (!userid || !wardId || !orgId) return;
+    if (!userid || !wardId) return;
     const fetchData = async () => {
       try {
         setLoading(true);
@@ -51,6 +51,7 @@ const WardWiseTaxbywardid = () => {
           Request6: "",
           Request7: "",
         });
+
         let res = [];
         const rawData = response.data?.data;
 
@@ -111,11 +112,7 @@ const WardWiseTaxbywardid = () => {
             });
           }, 100);
         } else {
-          // console.warn("No jsondata found in response.");
-          setTableData([]);
-          setPieChartData([]);
-          setBarGraphData([]);
-          alert("No Data Found");
+          console.warn("No jsondata found in response.");
         }
       } catch (error) {
         console.error("Error fetching MIS data:", error);
@@ -124,10 +121,8 @@ const WardWiseTaxbywardid = () => {
       }
     };
 
-    if (userid && wardId && orgId) {
-      fetchData();
-    }
-  }, [userid, wardId, orgId]);
+    fetchData();
+  }, [userid, wardId]);
 
   return (
     <div className="min-h-screen bg-[#eef4ff] font-sans pb-6">

@@ -51,56 +51,46 @@ const LegalBlock = () => {
 
         const response = await apiService.post("generic-call", payload);
         const jsonData = response.data?.data?.jsondata || [];
-        if(jsonData?.length > 0){
-          const totalRow = jsonData.reduce(
-            (acc, cur) => {
-              acc.legal_propcount += Number(cur.legal_propcount);
-              acc.illlegal_propcount += Number(cur.illlegal_propcount);
-              acc.total_propcount += Number(cur.total_propcount);
-              return acc;
-            },
-            {
-              block_name: "एकूण",
-              legal_propcount: 0,
-              illlegal_propcount: 0,
-              total_propcount: 0,
-            }
-          );
-  
-          const sorted = jsonData.sort((a, b) => a.block_id - b.block_id)
-  
-          setTableData([...sorted, totalRow]);
-  
-          setPieChartData(
-            jsonData.map((item) => ({
-              name: item.block_name,
-              y: item.total_propcount,
-            }))
-          );
-  
-          setBarGraphData(
-            jsonData.map((item) => ({
-              category: item.block_name,
-              previous: Number(item.legal_propcount) || 0,
-              current: Number(item.illlegal_propcount) || 0,
-              total: Number(item.total_propcount) || 0,
-            }))
-          );
-  
-          setTimeout(() => {
-            tableRef.current.scrollIntoView({
-              behavior: "smooth",
-              block: "center"
-            });
-          }, 100);
-        }
-        else{
-          setTableData([])
-          setBarGraphData([])
-          setPieChartData([])
-          alert("No data found")
-        }
 
+        const totalRow = jsonData.reduce(
+          (acc, cur) => {
+            acc.legal_propcount += Number(cur.legal_propcount);
+            acc.illlegal_propcount += Number(cur.illlegal_propcount);
+            acc.total_propcount += Number(cur.total_propcount);
+            return acc;
+          },
+          {
+            block_name: "एकूण",
+            legal_propcount: 0,
+            illlegal_propcount: 0,
+            total_propcount: 0,
+          }
+        );
+
+        setTableData([...jsonData, totalRow]);
+
+        setPieChartData(
+          jsonData.map((item) => ({
+            name: item.block_name,
+            y: item.total_propcount,
+          }))
+        );
+
+        setBarGraphData(
+          jsonData.map((item) => ({
+            category: item.block_name,
+            previous: Number(item.legal_propcount) || 0,
+            current: Number(item.illlegal_propcount) || 0,
+            total: Number(item.total_propcount) || 0,
+          }))
+        );
+
+        setTimeout(() => {
+          tableRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+          });
+        }, 100);
       } catch (error) {
         console.error("Error fetching Legal/Illegal Block data:", error);
       } finally {

@@ -95,7 +95,7 @@ const SearchInformation = () => {
         }, 100);
       } else {
         setTableData([]);
-        alert("No data found");
+        alert("No data found for the selected date and application number");
       }
     } catch (error) {
       console.error("Error fetching search information:", error);

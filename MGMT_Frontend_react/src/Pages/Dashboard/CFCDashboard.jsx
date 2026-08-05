@@ -10,28 +10,28 @@ import DashboardCard from "../../Components/NewDashboardCard";
 const tilesData = [
   {
     id: 1,
-    title: "कर संकलन",
+    title: "Tax Collection",
     icon: FaWallet,
     route: "Taxcollection",
     iconBg: "bg-gradient-to-br from-blue-500 to-cyan-400",
   },
   {
     id: 2,
-    title: "प्रभागनिहाय कर संकलन",
+    title: "Wardwise Tax Collection",
     icon: GiMoneyStack,
     route: "WardWiseTaxColl",
     iconBg: "bg-gradient-to-br from-purple-500 to-violet-400",
   },
   {
     id: 3,
-    title: "एकूण संकलन टक्केवारी",
+    title: "Total Collection Percentage",
     icon: PiSealPercentFill,
     route: "TotalCollPercent",
     iconBg: "bg-gradient-to-br from-emerald-500 to-green-400",
   },
   {
     id: 4,
-    title: "झोननिहाय कर संकलन",
+    title: "Zonewise Tax Collection",
     icon: BsGraphUp,
     route: "ZoneWiseTaxColl",
     iconBg: "bg-gradient-to-br from-orange-500 to-amber-400",
@@ -46,7 +46,7 @@ export default function CFCDashboard() {
   };
 
   const filteredTiles = tilesData.filter((t) =>
-    t.title.toLowerCase().includes(query.toLowerCase()),
+    t.title.toLowerCase().includes(query.toLowerCase())
   );
 
   const openFeature = (route) => {
@@ -66,7 +66,7 @@ export default function CFCDashboard() {
         subtitle="Welcome"
         onBack={handleGoBack}
       />
-      <div className="mx-auto w-full lg:w-[40%]">
+      <div className="mx-auto w-[100%] lg:w-[40%]">
         <section className="container mx-auto md:-mt-3 px-4">
           <div className="grid grid-cols-2 gap-3">
             {tilesData.map((item) => (

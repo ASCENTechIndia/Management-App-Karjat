@@ -159,13 +159,8 @@ const WardWiseTaxColl = () => {
           setTableData([]);
           setPieChartData([]);
           setBarGraphData([]);
-          alert("No Data Found");
         }
       } catch (error) {
-        setTableData([]);
-        setPieChartData([]);
-        setBarGraphData([]);
-        alert("Error fetching collection data");
         console.error("Error fetching collection data:", error);
       } finally {
         setLoading(false);

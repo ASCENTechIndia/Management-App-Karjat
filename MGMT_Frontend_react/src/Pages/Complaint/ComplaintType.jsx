@@ -77,7 +77,7 @@ const ComplaintType = () => {
           });
         }, 100);
       } else {
-        alert("No data found");
+        alert("No record available");
         setTableData([]);
       }
     } catch (error) {

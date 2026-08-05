@@ -31,7 +31,7 @@ const LegalPrabhag = () => {
   const { wardId, wardName } = location.state || {};
 
   const handleGoBack = () => {
-    navigate("/WaterActiveInactive");
+    navigate("/waterdashboard");
   };
 
   useEffect(() => {
@@ -99,10 +99,7 @@ const LegalPrabhag = () => {
             });
           }, 100);
         } else {
-          setTableData([]);
-          setPieChartData([]);
-          setBarGraphData([]);
-          alert("No data found");
+          alert("No record found");
         }
       } catch (error) {
         console.error("Error fetching Legal/Illegal Zone data:", error);
@@ -112,10 +109,8 @@ const LegalPrabhag = () => {
       }
     };
 
-    if (userId && wardId && orgId) {
-      fetchData();
-    }
-  }, [userId, wardId, orgId]);
+    if (userId && wardId) fetchData();
+  }, [userId, wardId]);
 
   const headers = ["Zone", "Active", "Inactive", "Total"];
 
@@ -130,15 +125,15 @@ const LegalPrabhag = () => {
       <SubHeaderCard
         subtitle="Ward"
         title={
-          <>
-            <span
-              className="cursor-pointer hover:underline"
-              onClick={() => navigate("/WaterActiveInactive")}
-            >
-              {`All Wards`}
-            </span> {` ${wardName ? `/ ${wardName}` : ""}`}
-          </>
-        }
+        <>  
+          <span
+            className="cursor-pointer hover:underline"
+            onClick={() => navigate("/WaterActiveInactive")}
+          >
+            {`All Wards`}
+          </span> {` ${wardName ? `/ ${wardName}` : ""}`}
+        </>
+          }
         infoText="All properties"
         className="mt-4"
       />

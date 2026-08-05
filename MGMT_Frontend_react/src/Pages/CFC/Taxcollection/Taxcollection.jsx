@@ -160,9 +160,6 @@ const Taxcollection = () => {
       }
     } catch (error) {
       console.error(error);
-      setTableData([]);
-      setChartData([]);
-      setBarGraphData([]);
       alert(error.message);
     } finally {
       setLoading(false);

@@ -96,7 +96,7 @@ const BirthRegistrationByWard = () => {
         }, 100);
       } else {
         setTableData([]);
-        alert("No data found");
+        alert("No data found for the selected dates");
       }
     } catch (error) {
       console.error("Error fetching ward-wise birth data:", error);

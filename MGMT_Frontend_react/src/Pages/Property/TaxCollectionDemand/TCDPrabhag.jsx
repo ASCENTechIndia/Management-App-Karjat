@@ -47,7 +47,6 @@ const TCDPrabhag = () => {
       };
 
       const response = await apiService.post("generic-call", payload);
-      console.log("ress :", response)
       const jsonData = response?.data?.data?.jsondata || [];
 
       const result = jsonData.map((item) => ({
@@ -58,8 +57,6 @@ const TCDPrabhag = () => {
         current: parseFloat(item.current) || 0,
         total: parseFloat(item.total) || 0,
       }));
-
-      const sortedRes = result.sort((a, b) => a.zone_id - b.zone_id)
 
       const totalRow = result.reduce(
         (acc, cur) => {
@@ -75,7 +72,7 @@ const TCDPrabhag = () => {
       totalRow.current = parseFloat(totalRow.current.toFixed(2));
       totalRow.total = parseFloat(totalRow.total.toFixed(2));
 
-      setTableData([...sortedRes, totalRow]);
+      setTableData([...result, totalRow]);
 
       setPieData(
         result.map((item) => ({

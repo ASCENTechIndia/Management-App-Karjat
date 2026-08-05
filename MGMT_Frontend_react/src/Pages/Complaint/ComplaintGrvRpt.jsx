@@ -39,8 +39,6 @@ const ComplaintGrvRpt = () => {
   }, [ulbId]);
 
   const fetchData = async () => {
-    if(!ulbId) return;
-
     try {
       setLoading(true);
       const response = await axios.get(
@@ -65,7 +63,7 @@ const ComplaintGrvRpt = () => {
           });
         }, 100);
       } else {
-        alert("No data found");
+        alert("Record not available");
         setTableData([]);
       }
     } catch (error) {

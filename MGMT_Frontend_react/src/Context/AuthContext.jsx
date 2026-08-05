@@ -93,9 +93,6 @@ export const AuthProvider = ({ children }) => {
     clearTimeout(inactivityTimer);
     localStorage.removeItem("user");
     localStorage.removeItem("userId"); // ✅ remove userId also
-    localStorage.removeItem("token");
-    localStorage.removeItem("data");
-    localStorage.removeItem("userConfig");
     setUser(null);
     setLoading(false);
     window.location.replace("/"); // Redirect to login

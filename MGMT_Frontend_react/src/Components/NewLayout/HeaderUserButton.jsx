@@ -10,7 +10,6 @@ import {
 } from "react-icons/bs";
 import { FaUserCircle, FaHome, FaTint, FaExclamationCircle, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import { useAuth } from "../../Context/AuthContext";
 const menuOptions = [
     {
         name: "Home",
@@ -45,12 +44,6 @@ const menuOptions = [
 ];
 const HeaderUserButton = ({ logOut }) => {
     const navigate = useNavigate();
-    const { user } = useAuth();
-
-    // Fallback to localStorage in case user state from useAuth context is empty or loading
-    const storedUser = !user ? JSON.parse(localStorage.getItem("user") || "{}") : user;
-    const userName = user?.data?.UserName || storedUser?.data?.UserName || "";
-    const ulbName = user?.data?.UlbName || storedUser?.data?.UlbName || "";
 
     const [showDropdown, setShowDropdown] = useState(false);
     const dropdownRef = useRef(null);
@@ -93,24 +86,6 @@ const HeaderUserButton = ({ logOut }) => {
 
             {showDropdown && (
                 <div className="absolute right-0 top-full mt-2 w-60 rounded-xl border border-gray-200 bg-white shadow-xl z-50 overflow-hidden">
-                    {/* User Profile Details */}
-                    {(userName || ulbName) && (
-                        <div className="px-4 py-3 border-b border-gray-200 bg-gray-50/50 flex flex-col gap-0.5">
-                            <div className="text-[10px] font-bold text-gray-400 uppercase tracking-wider">
-                                Profile Details
-                            </div>
-                            {userName && (
-                                <div className="text-[14px] font-bold text-gray-800 truncate" title={userName}>
-                                    User Name: {userName}
-                                </div>
-                            )}
-                            {ulbName && (
-                                <div className="text-xs text-gray-500 truncate" title={ulbName}>
-                                   ULB Name: {ulbName}
-                                </div>
-                            )}
-                        </div>
-                    )}
 
                     {menuOptions.map((item) => {
                         const Icon = item.icon;

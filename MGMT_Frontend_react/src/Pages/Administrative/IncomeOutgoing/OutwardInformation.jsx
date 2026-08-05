@@ -96,11 +96,11 @@ const OutwardInformation = () => {
           }
         } else {
           setTableData([]);
-          alert("No data found");
+          alert("No data found for the selected dates");
         }
       } else {
         setTableData([]);
-        alert("No data found");
+        alert("No data found for the selected dates");
       }
     } catch (error) {
       console.error("Error fetching outward information:", error);

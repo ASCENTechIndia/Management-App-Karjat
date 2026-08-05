@@ -144,7 +144,7 @@ const ComplaintSummary = () => {
         }, 100);
       } else {
         setSummaryData([]);
-        alert("No data found");
+        alert("Record not found");
       }
     } catch (error) {
       console.error("Error fetching summary:", error);
@@ -190,7 +190,7 @@ const ComplaintSummary = () => {
         }, 100);
       } else {
         setDetailsData([]);
-        alert("No data found");
+        alert("No details found");
       }
     } catch (error) {
       console.error("Error fetching details:", error);

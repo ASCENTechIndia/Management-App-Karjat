@@ -58,8 +58,6 @@ const ComplaintReportByPeriod = () => {
   }, [ulbId]);
 
   const fetchDepartments = async () => {
-    if(!ulbId) return;
-
     try {
       setLoading(true);
       const response = await axios.get(
@@ -76,7 +74,7 @@ const ComplaintReportByPeriod = () => {
           setSelectedDept(options[0].value);
         }
       } else {
-        alert("No data found");
+        alert("No departments found");
         setDeptOptions([]);
       }
     } catch (error) {

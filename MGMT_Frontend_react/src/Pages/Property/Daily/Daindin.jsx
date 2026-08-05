@@ -59,8 +59,8 @@ const Daindin = () => {
   const [dataCache, setDataCache] = useState({});
 
   const handleSubmit = async (values) => {
-    if (!userId || !orgId) {
-      alert("UserId or OrgId is not set");
+    if (!userId) {
+      alert("UserId is not set");
       return;
     }
     try {
@@ -77,15 +77,15 @@ const Daindin = () => {
         Request6: "",
         Request7: "",
       };
+      console.log("mgmt", payload);
       const res = await apiService.post("generic-call", payload);
       if (
         Array.isArray(res?.data?.data?.jsondata) &&
         res?.data?.data?.jsondata?.length > 0
       ) {
         setInitialView(true);
-        const data = res?.data?.data?.jsondata || [];
-        const sortedData = data.sort((a, b) => a.ward_id - b.ward_id)
-        setTableData(sortedData);
+        const data = res?.data?.data?.jsondata;
+        setTableData(data);
         const bothChartData = data.map((data) => ({
           value: Number(data.total),
           label: data.ward_name,
@@ -107,9 +107,6 @@ const Daindin = () => {
         alert("No data found");
       }
     } catch (error) {
-      setTableData([]);
-      setBarGraphData([]);
-      setChartData([]);
       alert(error.message);
     } finally {
       setLoading(false);
@@ -157,8 +154,7 @@ const Daindin = () => {
             Current: "current",
             Total: "total",
           });
-          const sortedData = data.sort((a, b) => a.zone_id - b.zone_id)
-          setTableData(sortedData);
+          setTableData(data);
           const bothChartData = data.map((data) => ({
             value: Number(data.total),
             label: data.zone_name,
@@ -222,7 +218,6 @@ const Daindin = () => {
             Current: "current",
             Total: "total",
           });
-          const sortedData = data.sort((a, b) => a.block_id - b.block_id)
           setTableData(data);
           const bothChartData = data.map((data) => ({
             value: Number(data.total),
