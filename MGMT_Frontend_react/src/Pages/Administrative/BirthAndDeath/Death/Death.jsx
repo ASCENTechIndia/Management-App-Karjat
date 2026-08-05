@@ -23,7 +23,7 @@ const tilesData = [
   },
   {
     id: 3,
-    title: "शोध माहिती",
+    title: "माहिती शोधा",
     icon: HiMiniDocumentMagnifyingGlass,
     route: "DeathSearchInfo",
     iconBg: "bg-gradient-to-br from-red-500 to-orange-400"
@@ -80,21 +80,21 @@ export default function Death() {
         </div>
       </section> */}
 
-       <div className="mx-auto w-[100%] lg:w-[40%]">
-              <section class="container mx-auto md:-mt-3 px-4">
-                <div class="grid grid-cols-2 gap-3">
-                  {tilesData.map((item) => (
-                    <DashboardCard
-                      onClick={() => openFeature(item.route)}
-                      icon={item.icon}
-                      title={item.title}
-                      iconBg={item.iconBg}
-                    />
-                  ))}
-      
-                </div>
-              </section>
-            </div>
+      <div className="mx-auto w-[100%] lg:w-[40%]">
+        <section class="container mx-auto md:-mt-3 px-4">
+          <div class="grid grid-cols-2 gap-3">
+            {tilesData.map((item) => (
+              <DashboardCard
+                onClick={() => openFeature(item.route)}
+                icon={item.icon}
+                title={item.title}
+                iconBg={item.iconBg}
+              />
+            ))}
+
+          </div>
+        </section>
+      </div>
 
     </div>
   );

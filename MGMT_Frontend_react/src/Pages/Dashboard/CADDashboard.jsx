@@ -73,7 +73,7 @@ const tilesData = [
   },
   {
     id: 9,
-    title: "पुन्हा उघडा",
+    title: "रिओपन",
     icon: FaRedo,
     route: "ReOpen",
     iconBg: "bg-gradient-to-br from-amber-500 to-yellow-400",

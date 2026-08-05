@@ -21,7 +21,7 @@ const tilesData = [
   },
   {
     id: 3,
-    title: "शोध माहिती",
+    title: "माहिती शोधा",
     icon: FaSearch,
     route: "BirthSearchInfo",
     iconBg: "bg-gradient-to-br from-purple-500 to-violet-400",
