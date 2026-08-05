@@ -34,7 +34,7 @@ const LegalIllegal = () => {
 
   useEffect(() => {
     const fetchData = async () => {
-      if (!user) return;
+      if (!user?.userId || !orgId) return;
 
       try {
         setLoading(true);
@@ -92,7 +92,10 @@ const LegalIllegal = () => {
             });
           }, 100);
         } else {
-          alert("No record found");
+          setTableData([]);
+          setPieChartData([]);
+          setBarGraphData([]);
+          alert("No data found");
         }
       } catch (error) {
         console.error("Error fetching Legal/Illegal data:", error);
@@ -102,8 +105,10 @@ const LegalIllegal = () => {
       }
     };
 
-    fetchData();
-  }, [user]);
+    if (user?.userId && orgId) {
+      fetchData();
+    }
+  }, [user, orgId]);
 
   const headers = ["Ward", "Active", "Inactive", "Total"];
 

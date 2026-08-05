@@ -33,82 +33,91 @@ const ResidentCommerical = () => {
 
   const headers = ["Ward", "Resident", "Commercial", "Total"];
 
-  useEffect(() => {
-    // if (!userid) {
-    //   alert("UserId is not set");
-    //   return;
-    // }
-    const fetchData = async () => {
-      try {
-        setLoading(true);
-        const response = await apiService.post("generic-call", {
-          Request1: `MobApp$MIS_ResNonRes$${userid}$${orgId}`,
-          Request2: "",
-          Request3: "",
-          Request4: "",
-          Request5: "",
-          Request6: "",
-          Request7: "",
-        });
-        if (response.data?.data?.jsondata) {
-          const res = response.data.data.jsondata;
+  const fetchData = async () => {
+    if (!userid || !orgId) return;
 
-          const formattedData = res.map((item) => ({
-            prabhag: item.ward_name,
-            mvalue: item.Residential_propcount,
-            cvalue: item.Nonresidential_propcount,
-            tvalue: item.total_propcount,
-            wardId: item.ward_id,
-          }));
+    try {
+      setLoading(true);
+      const response = await apiService.post("generic-call", {
+        Request1: `MobApp$MIS_ResNonRes$${userid}$${orgId}`,
+        Request2: "",
+        Request3: "",
+        Request4: "",
+        Request5: "",
+        Request6: "",
+        Request7: "",
+      });
+      if (response.data?.data?.jsondata?.length > 0) {
+        const res = response.data.data.jsondata;
 
-          const totalRow = formattedData.reduce(
-            (acc, cur) => {
-              acc.mvalue += cur.mvalue;
-              acc.cvalue += cur.cvalue;
-              acc.tvalue += cur.tvalue;
-              return acc;
-            },
-            {
-              prabhag: "Total",
-              mvalue: 0,
-              cvalue: 0,
-              tvalue: 0,
-            }
-          );
+        const formattedData = res.map((item) => ({
+          prabhag: item.ward_name,
+          mvalue: item.Residential_propcount,
+          cvalue: item.Nonresidential_propcount,
+          tvalue: item.total_propcount,
+          wardId: item.ward_id,
+        }));
 
-          setTableData([...formattedData, totalRow]);
+        const sortedFormatedData = formattedData.sort((a, b) => a.ward_id - b.ward_id)
 
-          setPieChartData(
-            res.map((item) => ({
-              name: item.ward_name,
-              y: item.total_propcount,
-            }))
-          );
+        const totalRow = formattedData.reduce(
+          (acc, cur) => {
+            acc.mvalue += cur.mvalue;
+            acc.cvalue += cur.cvalue;
+            acc.tvalue += cur.tvalue;
+            return acc;
+          },
+          {
+            prabhag: "Total",
+            mvalue: 0,
+            cvalue: 0,
+            tvalue: 0,
+          },
+        );
 
-          setBarGraphData(
-            res.map((item) => ({
-              category: item.ward_name,
-              previous: Number(item.Residential_propcount) || 0,
-              current: Number(item.Nonresidential_propcount) || 0,
-              total: Number(item.total_propcount) || 0,
-            }))
-          );
-          setTimeout(() => {
-            tableRef.current.scrollIntoView({
-              behavior: "smooth",
-              block: "center"
-            });
-          }, 100);
-        }
-      } catch (error) {
-        console.error("Error fetching MIS data:", error);
-      } finally {
-        setLoading(false);
+        setTableData([...sortedFormatedData, totalRow]);
+
+        setPieChartData(
+          res.map((item) => ({
+            name: item.ward_name,
+            y: item.total_propcount,
+          })),
+        );
+
+        setBarGraphData(
+          res.map((item) => ({
+            category: item.ward_name,
+            previous: Number(item.Residential_propcount) || 0,
+            current: Number(item.Nonresidential_propcount) || 0,
+            total: Number(item.total_propcount) || 0,
+          })),
+        );
+        setTimeout(() => {
+          tableRef.current.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }, 100);
+      } else {
+        setTableData([]);
+        setPieChartData([]);
+        setBarGraphData([]);
+        alert("No data found");
       }
-    };
-
-    if (userid) fetchData();
-  }, [userid]);
+    } catch (error) {
+      setTableData([]);
+      setPieChartData([]);
+      setBarGraphData([]);
+      console.error("Error fetching MIS data:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    if(userid && orgId){
+      fetchData();
+    }
+  }, [userid, orgId]);
 
   return (
     <div className="min-h-screen bg-[#eef4ff] font-sans pb-6">
@@ -134,8 +143,8 @@ const ResidentCommerical = () => {
               setActiveView("table");
               tableRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<TableIcon className="w-6 h-6" />}
             title="Table View"
@@ -148,8 +157,8 @@ const ResidentCommerical = () => {
               setActiveView("pie");
               pieRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<PieChart className="w-6 h-6" />}
             title="Pie Chart View"
@@ -162,8 +171,8 @@ const ResidentCommerical = () => {
               setActiveView("bar");
               barRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<BarChart3 className="w-6 h-6" />}
             title="Bar Chart View"
@@ -239,4 +248,3 @@ const ResidentCommerical = () => {
 };
 
 export default ResidentCommerical;
-

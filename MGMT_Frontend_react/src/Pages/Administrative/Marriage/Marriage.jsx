@@ -7,23 +7,23 @@ import DashboardCard from "../../../Components/NewDashboardCard";
 const tilesData = [
   {
     id: 1,
-    title: "Miscellaneous Information",
+    title: "विविध माहिती",
     icon: FaFileAlt,
     route: "MiscellaneousInfo",
     iconBg: "bg-gradient-to-br from-blue-500 to-cyan-400",
   },
   {
     id: 2,
-    title: "Ward Wise Marriage Registration",
+    title: "प्रभागनिहाय विवाह नोंदणी",
     icon: FaRing,
     route: "WardWiseMrgRegistration",
     iconBg: "bg-gradient-to-br from-purple-500 to-violet-400",
   },
   {
     id: 3,
-    title: "Search Information",
+    title: "माहिती शोधा",
     icon: FaSearch,
-    route: "SearchInformation", // null data in jsondata 
+    route: "SearchInformation",
     iconBg: "bg-gradient-to-br from-emerald-500 to-green-400",
   },
 ];

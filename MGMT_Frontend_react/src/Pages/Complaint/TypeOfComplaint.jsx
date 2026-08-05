@@ -63,7 +63,7 @@ const TypeOfComplaint = () => {
           });
         }, 100);
       } else {
-        alert("No record available");
+        alert("No data found");
         setBarData([]);
       }
     } catch (error) {

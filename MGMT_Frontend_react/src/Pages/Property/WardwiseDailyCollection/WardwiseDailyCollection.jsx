@@ -100,7 +100,9 @@ const WardwiseDailyCollection = () => {
         alert("No data found");
       }
     } catch (error) {
-      console.error(error);
+      setTableData([]);
+      setBarGraphData([]);
+      setChartData([]);
       alert(error.message);
     } finally {
       setLoading(false);

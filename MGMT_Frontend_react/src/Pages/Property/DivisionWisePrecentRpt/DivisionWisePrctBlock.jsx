@@ -24,35 +24,42 @@ const DivisionWisePrctBlock = () => {
   const { setLoading } = useLoader();
 
   const { user } = useAuth();
-  const orgId = user?.data?.OrgId;
+  const orgId = user?.data?.OrgId || "";
+  const userId = user?.userId || '';
   const location = useLocation();
   const navigate = useNavigate();
   const { wardId, wardName, zoneId, zoneName } = location.state || {};
 
   const handleGoBack = () => {
-    navigate("/propertydashboard");
+    navigate("/DivisionWisePrctPrabhag", {
+      state: { wardId, wardName },
+    });
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!user || !wardId || !zoneId) return;
+  const fetchData = async () => {
+    if (!userId || !orgId || !wardId || !zoneId) {
+      return;
+    }
 
-      try {
-        setLoading(true);
-        const payload = {
-          Request1: `MobApp$prabhag_demcollper$${user.userId}$${orgId}~${wardId}~${zoneId}`,
-          Request2: "",
-          Request3: "",
-          Request4: "",
-          Request5: "",
-          Request6: "",
-          Request7: "",
-        };
+    try {
+      setLoading(true);
+      const payload = {
+        Request1: `MobApp$prabhag_demcollper$${userId}$${orgId}~${wardId}~${zoneId}`,
+        Request2: "",
+        Request3: "",
+        Request4: "",
+        Request5: "",
+        Request6: "",
+        Request7: "",
+      };
 
-        const response = await apiService.post("generic-call", payload);
-        const jsonData = response.data?.data?.jsondata || [];
+      const response = await apiService.post("generic-call", payload);
+      console.log("res :", response)
+      const jsonData = response.data?.data?.jsondata || [];
 
-        const numericData = jsonData.map((item) => ({
+      if (jsonData.length > 0) {
+        const sortedData = [...jsonData].sort((a, b) => Number(a.block_id) - Number(b.block_id));
+        const numericData = sortedData.map((item) => ({
           ...item,
           dmd: parseFloat(item.dmd) || 0,
           coll: parseFloat(item.coll) || 0,
@@ -99,15 +106,25 @@ const DivisionWisePrctBlock = () => {
             block: "center"
           });
         }, 100);
-      } catch (error) {
-        console.error("Error fetching Block data:", error);
-      } finally {
-        setLoading(false);
+      } else {
+        setTableData([]);
+        setPieChartData([]);
+        setBarGraphData([]);
+        alert("No Data Found");
       }
-    };
 
-    fetchData();
-  }, [user, wardId, zoneId]);
+    } catch (error) {
+      console.error("Error fetching Block data:", error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+
+    if (userId && orgId && wardId && zoneId) {
+      fetchData();
+    }
+  }, [userId, wardId, orgId, zoneId]);
 
   const headers = ["Block", "Demand", "Collection", "Arrears", "Percentage"];
 

@@ -24,32 +24,35 @@ const DivisionWisePrecentRpt = () => {
   const { setLoading } = useLoader();
   const { user } = useAuth();
   const orgId = user?.data?.OrgId;
+  const userId = user?.userId;
   const navigate = useNavigate();
 
   const handleGoBack = () => {
     navigate("/propertydashboard");
   };
 
-  useEffect(() => {
-    const fetchData = async () => {
-      if (!user) return;
+  const fetchData = async () => {
+    if (!userId || !orgId) return;
 
-      try {
-        setLoading(true);
-        const payload = {
-          Request1: `MobApp$prabhag_demcollper$${user.userId}$${orgId}~~`,
-          Request2: "",
-          Request3: "",
-          Request4: "",
-          Request5: "",
-          Request6: "",
-          Request7: "",
-        };
+    try {
+      setLoading(true);
+      const payload = {
+        Request1: `MobApp$prabhag_demcollper$${userId}$${orgId}~~`,
+        Request2: "",
+        Request3: "",
+        Request4: "",
+        Request5: "",
+        Request6: "",
+        Request7: "",
+      };
 
-        const response = await apiService.post("generic-call", payload);
-        const jsonData = response.data?.data?.jsondata || [];
-
-        const numericData = jsonData.map((item) => ({
+      const response = await apiService.post("generic-call", payload);
+      const jsonData = response.data?.data?.jsondata || [];
+      if (jsonData?.length > 0) {
+        const sortedData = [...jsonData].sort(
+          (a, b) => Number(a.wardid) - Number(b.wardid),
+        );
+        const numericData = sortedData.map((item) => ({
           ...item,
           dmd: parseFloat(item.dmd) || 0,
           coll: parseFloat(item.coll) || 0,
@@ -70,7 +73,7 @@ const DivisionWisePrecentRpt = () => {
             coll: 0,
             outst: 0,
             Per: 0,
-          }
+          },
         );
         totalRow.Per = totalRow.dmd ? (totalRow.coll / totalRow.dmd) * 100 : 0;
         totalRow.dmd = Number(totalRow.dmd.toFixed(2));
@@ -84,30 +87,41 @@ const DivisionWisePrecentRpt = () => {
           numericData.map((item) => ({
             name: item.wardnm,
             y: item.Per,
-          }))
+          })),
         );
 
         setBarGraphData(
           numericData.map((item) => ({
             category: item.wardnm,
             percentage: Number(item.Per) || 0,
-          }))
+          })),
         );
         setTimeout(() => {
           tableRef.current.scrollIntoView({
             behavior: "smooth",
-            block: "center"
+            block: "center",
           });
         }, 100);
-      } catch (error) {
-        console.error("Error fetching percent data:", error);
-      } finally {
-        setLoading(false);
+      } else {
+        setTableData([]);
+        setPieChartData([]);
+        setBarGraphData([]);
+        alert("No data found");
       }
-    };
-
-    fetchData();
-  }, [user]);
+    } catch (error) {
+      setTableData([]);
+      setPieChartData([]);
+      setBarGraphData([]);
+      alert(error.message);
+    } finally {
+      setLoading(false);
+    }
+  };
+  useEffect(() => {
+    if (userId && orgId) {
+      fetchData();
+    }
+  }, [userId, orgId]);
 
   const headers = ["Ward", "Demand", "Collection", "Arrears", "Percentage"];
 
@@ -135,8 +149,8 @@ const DivisionWisePrecentRpt = () => {
               setActiveView("table");
               tableRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<TableIcon className="w-6 h-6" />}
             title="Table View"
@@ -149,8 +163,8 @@ const DivisionWisePrecentRpt = () => {
               setActiveView("pie");
               pieRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<PieChart className="w-6 h-6" />}
             title="Pie Chart View"
@@ -163,8 +177,8 @@ const DivisionWisePrecentRpt = () => {
               setActiveView("bar");
               barRef.current.scrollIntoView({
                 behavior: "smooth",
-                block: "center"
-              })
+                block: "center",
+              });
             }}
             icon={<BarChart3 className="w-6 h-6" />}
             title="Bar Chart View"
@@ -236,4 +250,3 @@ const DivisionWisePrecentRpt = () => {
 };
 
 export default DivisionWisePrecentRpt;
-
