@@ -38,7 +38,8 @@ const WardWiseTax = () => {
       try {
         setLoading(true);
         const response = await apiService.post("WTgeneric-call", {
-          Request1: `CollectionCenter$PrabhagWise_WtCollection$${userid}$${orgId}`,
+          // Request1: `CollectionCenter$PrabhagWise_WtCollection$${userid}$${orgId}`,
+          Request1: `CollectionCenter$Wt_WardWise_Collection$${userid}$${orgId}`,
           Request2: "a",
           Request3: "a",
           Request4: "a",

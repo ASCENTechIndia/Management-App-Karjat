@@ -273,7 +273,7 @@ const WardWiseTaxDemand = () => {
       setInitialView(true);
       setLoading(true);
       const payload = {
-        Request1: `CollectionCenter$WTPrabhagWise_Demand$${userId}$${orgId}~~`,
+        Request1: `CollectionCenter$Wt_WardZonewise_Demand$${userId}$${orgId}~~`,
         Request2: "",
         Request3: "",
         Request4: "",
