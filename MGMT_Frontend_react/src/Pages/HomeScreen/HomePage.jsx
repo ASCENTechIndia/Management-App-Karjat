@@ -9,7 +9,9 @@ import {
   BsExclamationCircleFill,
   BsBuildingFill,
   BsCashCoin,
-  BsBoxArrowRight
+  BsBoxArrowRight,
+  BsServer,
+  BsCurrencyRupee
 } from "react-icons/bs";
 import { FaUserCircle, FaHome, FaTint, FaExclamationCircle, FaChevronRight } from "react-icons/fa";
 import "./NewHomeScreenstyles.css";
@@ -73,6 +75,22 @@ const departments = [
     iconBg: "bg-gradient-to-br from-indigo-700 to-indigo-400",
     route: "estate"
   },
+  {
+    name: "आर.टी.एस विभाग",
+    subtitle: "RTS Department",
+    icon: BsServer,
+    border: "border-l-blue-700",
+    iconBg: "bg-gradient-to-br from-blue-700 to-blue-400",
+    route: "rts"
+  },
+  {
+    name: "मार्केट विभाग",
+    subtitle: "Market Department",
+    icon: BsCurrencyRupee,
+    border: "border-l-orange-500",
+    iconBg: "bg-gradient-to-br from-orange-500 to-red-400",
+    route: "market"
+  },
 ];
 
 const HomeScreen = () => {
@@ -114,6 +132,10 @@ const HomeScreen = () => {
         navigate("/Accounts");
       } else if (route === "estate") {
         navigate("/Estate");
+      } else if (route === "rts") {
+        navigate("/Rts");
+      } else if (route === "market") {
+        navigate("/Market");
       } else {
         navigate(`/${route}`); // fallback if you want dynamic routes
       }
