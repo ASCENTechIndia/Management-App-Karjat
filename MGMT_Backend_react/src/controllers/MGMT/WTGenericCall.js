@@ -138,7 +138,7 @@ const WTGenericCall = async (req, res) => {
       try {
         await connection.close();
       } catch (err) {
-        console.error("Error closing Oracle connection:", closeErr);
+        console.error("Error closing Oracle connection:", err);
       }
     }}
 };

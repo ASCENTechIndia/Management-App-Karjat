@@ -57,6 +57,14 @@ const departments = [
     iconBg: "bg-gradient-to-br from-purple-700 to-purple-400",
     route: "cfc"
   },
+  {
+    name: "अकाऊंट विभाग",
+    subtitle: "Account Department",
+    icon: BsCashCoin,
+    border: "border-l-purple-700",
+    iconBg: "bg-gradient-to-br from-purple-700 to-purple-400",
+    route: "accounts"
+  },
 ];
 
 const HomeScreen = () => {
@@ -94,6 +102,8 @@ const HomeScreen = () => {
         navigate("/CfcDashBoard");
       } else if (route === "death") {
         navigate("/Death");
+      } else if (route === "accounts") {
+        navigate("/Accounts");
       } else {
         navigate(`/${route}`); // fallback if you want dynamic routes
       }

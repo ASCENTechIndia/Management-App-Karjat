@@ -1,4 +1,4 @@
-const express = require("express");
+﻿const express = require("express");
 const CryptoJS = require("crypto-js");
 const logger = require("./logger");
 const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fetch(...args));
@@ -6,8 +6,8 @@ const fetch = (...args) => import('node-fetch').then(({ default: fetch }) => fet
 const router = express.Router();
 
 const API_SECRET = "your-secret-key";
-// const BASE_API_URL = "https://mgmtapi.nagarkaryavalinewuat.com/"
- const BASE_API_URL = "http://localhost:5001/"
+ const BASE_API_URL = "https://mgmtappapi.nagarkaryavalinew.com/"
+// const BASE_API_URL = "http://localhost:5001/"
 
 function decryptPayload(encryptedText) {
   const bytes = CryptoJS.AES.decrypt(encryptedText, API_SECRET);

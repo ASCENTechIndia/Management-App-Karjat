@@ -1,4 +1,4 @@
-const oracledb = require("oracledb");
+﻿const oracledb = require("oracledb");
 const { getConnection } = require("../../../src/config/database");
 const CryptoJS = require("crypto-js");
 const jwt = require("jsonwebtoken"); // Import JWT
@@ -12,7 +12,7 @@ const { buildLoginInner, encryptJsonData, ENC_KEY,unwrapEncrypted } = require('.
 
 const JWT_SECRET = process.env.JWT_SECRET;
 
-const LOGIN_URL = process.env.LOGIN_URL || 'http://nagarkaryavaliuat.com/ANCL_CloudWebService/Service.svc/Login';
+const LOGIN_URL = process.env.LOGIN_URL || 'http://nagarkaryavali.com/ANCL_CloudWebService/Service.svc/Login';
 
 
 

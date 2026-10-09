@@ -91,6 +91,9 @@ import ProtectedRoute from './HOC/ProtectedRoute.jsx';
 import ComplaintReportByPeriod from './Pages/Complaint/ComplaintReportByPeriod.jsx';
 import ComplaintGrvRpt from './Pages/Complaint/ComplaintGrvRpt.jsx';
 import ReOpen from './Pages/Complaint/ReOpen.jsx';
+import Accounts from './Pages/Accounts/Accounts.jsx';
+import ZonewiseReceiptDetails from './Pages/Accounts/ZonewiseReceiptDetails.jsx';
+import AllZonesDetails from './Pages/Accounts/AllZonesDetails.jsx';
 
 function App() {
   return (
@@ -218,6 +221,10 @@ function App() {
             <Route path="/TypesOfComplaint" element={<TypesOfComplaint />} />
             <Route path="/ComplaintType2" element={<ComplaintType2 />} />
 
+            {/* Accounts */}
+            <Route path="/Accounts" element={<Accounts />} />
+            <Route path="/ZonewiseReceiptDetails" element={<ZonewiseReceiptDetails />} />
+            <Route path="/AllZonesDetails" element={<AllZonesDetails />} />
           </Routes>
         </ProtectedRoute>
         }
