@@ -65,6 +65,14 @@ const departments = [
     iconBg: "bg-gradient-to-br from-purple-700 to-purple-400",
     route: "accounts"
   },
+  {
+    name: "इस्टेट विभाग",
+    subtitle: "Estate Department",
+    icon: BsCashCoin,
+    border: "border-l-purple-700",
+    iconBg: "bg-gradient-to-br from-purple-700 to-purple-400",
+    route: "estate"
+  },
 ];
 
 const HomeScreen = () => {
@@ -104,6 +112,8 @@ const HomeScreen = () => {
         navigate("/Death");
       } else if (route === "accounts") {
         navigate("/Accounts");
+      } else if (route === "estate") {
+        navigate("/Estate");
       } else {
         navigate(`/${route}`); // fallback if you want dynamic routes
       }

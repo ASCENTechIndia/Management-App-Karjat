@@ -94,6 +94,9 @@ import ReOpen from './Pages/Complaint/ReOpen.jsx';
 import Accounts from './Pages/Accounts/Accounts.jsx';
 import ZonewiseReceiptDetails from './Pages/Accounts/ZonewiseReceiptDetails.jsx';
 import AllZonesDetails from './Pages/Accounts/AllZonesDetails.jsx';
+import Estate from './Pages/Estate/Estate.jsx';
+import ZoneWise from './Pages/Estate/ZoneWise.jsx';
+import ZoneWiseMarket from './Pages/Estate/ZoneWiseMarket.jsx';
 
 function App() {
   return (
@@ -225,6 +228,12 @@ function App() {
             <Route path="/Accounts" element={<Accounts />} />
             <Route path="/ZonewiseReceiptDetails" element={<ZonewiseReceiptDetails />} />
             <Route path="/AllZonesDetails" element={<AllZonesDetails />} />
+
+            {/* Estate */}
+            <Route path="/Estate" element={<Estate />} />
+            <Route path="/ZoneWise" element={<ZoneWise />} />
+            <Route path="/ZoneWiseMarket" element={<ZoneWiseMarket />} />
+
           </Routes>
         </ProtectedRoute>
         }
