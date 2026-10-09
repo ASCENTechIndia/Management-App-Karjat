@@ -41,6 +41,21 @@ const menuOptions = [
         name: "सी.फ.सी विभाग",
         icon: BsCashCoin,
         link: "/CfcDashBoard"
+    },
+    {
+        name: "अकाऊंट विभाग",
+        icon: BsCashStack,
+        link: "/Accounts"
+    },
+    {
+        name: "इस्टेट विभाग",
+        icon: BsBuildingFill,
+        link: "/Estate"
+    },
+    {
+        name: "सी.फ.सी विभाग",
+        icon: BsCashCoin,
+        link: "/CfcDashBoard"
     }
 ];
 const HeaderUserButton = ({ logOut }) => {
