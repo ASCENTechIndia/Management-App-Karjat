@@ -87,8 +87,8 @@ const departments = [
     name: "मार्केट विभाग",
     subtitle: "Market Department",
     icon: BsCurrencyRupee,
-    border: "border-l-orange-700",
-    iconBg: "bg-gradient-to-br from-orange-700 to-red-400",
+    border: "border-l-orange-500",
+    iconBg: "bg-gradient-to-br from-orange-500 to-red-400",
     route: "market"
   },
 ];
