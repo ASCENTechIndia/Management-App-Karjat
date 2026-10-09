@@ -6,7 +6,9 @@ import {
     BsExclamationCircleFill,
     BsBuildingFill,
     BsCashCoin,
-    BsBoxArrowRight
+    BsBoxArrowRight,
+    BsServer,
+    BsCurrencyRupee
 } from "react-icons/bs";
 import { FaUserCircle, FaHome, FaTint, FaExclamationCircle, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -54,12 +56,12 @@ const menuOptions = [
     },
     {
         name: "आर.टी.एस विभाग",
-        icon: BsCashCoin,
+        icon: BsServer,
         link: "/Rts"
     },
     {
         name: "मार्केट विभाग",
-        icon: BsCashCoin,
+        icon: BsCurrencyRupee,
         link: "/Market"
     }
 ];
