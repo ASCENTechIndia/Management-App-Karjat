@@ -60,17 +60,17 @@ const departments = [
   {
     name: "अकाऊंट विभाग",
     subtitle: "Account Department",
-    icon: BsCashCoin,
-    border: "border-l-purple-700",
-    iconBg: "bg-gradient-to-br from-purple-700 to-purple-400",
+    icon: BsCashStack,
+    border: "border-l-red-700",
+    iconBg: "bg-gradient-to-br from-red-700 to-red-400",
     route: "accounts"
   },
   {
     name: "इस्टेट विभाग",
     subtitle: "Estate Department",
-    icon: BsCashCoin,
-    border: "border-l-purple-700",
-    iconBg: "bg-gradient-to-br from-purple-700 to-purple-400",
+    icon: BsBuildingFill,
+    border: "border-l-indigo-700",
+    iconBg: "bg-gradient-to-br from-indigo-700 to-indigo-400",
     route: "estate"
   },
 ];
