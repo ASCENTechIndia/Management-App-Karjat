@@ -53,9 +53,14 @@ const menuOptions = [
         link: "/Estate"
     },
     {
-        name: "सी.फ.सी विभाग",
+        name: "आर.टी.एस विभाग",
         icon: BsCashCoin,
-        link: "/CfcDashBoard"
+        link: "/Rts"
+    },
+    {
+        name: "मार्केट विभाग",
+        icon: BsCashCoin,
+        link: "/Market"
     }
 ];
 const HeaderUserButton = ({ logOut }) => {
