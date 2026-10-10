@@ -11,7 +11,10 @@ import {
   BsCashCoin,
   BsBoxArrowRight,
   BsServer,
-  BsCurrencyRupee
+  BsCurrencyRupee,
+  BsBoxes,
+  BsPeopleFill,
+  BsFillAwardFill
 } from "react-icons/bs";
 import { FaUserCircle, FaHome, FaTint, FaExclamationCircle, FaChevronRight } from "react-icons/fa";
 import "./NewHomeScreenstyles.css";
@@ -91,6 +94,30 @@ const departments = [
     iconBg: "bg-gradient-to-br from-orange-500 to-red-400",
     route: "market"
   },
+  {
+    name: "ॲसेट मॅनेजमेंट विभाग",
+    subtitle: "Asset Management Department",
+    icon: BsBoxes,
+    border: "border-l-teal-600",
+    iconBg: "bg-gradient-to-br from-teal-600 to-cyan-500",
+    route: "asset"
+  },
+  {
+    name: "समाज कल्याण विभाग",
+    subtitle: "Social Welfare Department",
+    icon: BsPeopleFill,
+    border: "border-l-pink-600",
+    iconBg: "bg-gradient-to-br from-pink-600 to-rose-400",
+    route: "social_welfare"
+  },
+  {
+    name: "लीगल विभाग",
+    subtitle: "Legal Department",
+    icon: BsFillAwardFill,
+    border: "border-l-amber-600",
+    iconBg: "bg-gradient-to-br from-amber-600 to-yellow-400",
+    route: "legal"
+  },
 ];
 
 const HomeScreen = () => {
@@ -136,6 +163,12 @@ const HomeScreen = () => {
         navigate("/Rts");
       } else if (route === "market") {
         navigate("/Market");
+      } else if (route === "asset") {
+        navigate("/Asset");
+      } else if (route === "social_welfare") {
+        navigate("/SocialWelfare");
+      } else if (route === "legal") {
+        navigate("/Legal");
       } else {
         navigate(`/${route}`); // fallback if you want dynamic routes
       }

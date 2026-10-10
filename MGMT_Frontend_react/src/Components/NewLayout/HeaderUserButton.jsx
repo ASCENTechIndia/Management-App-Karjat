@@ -6,7 +6,10 @@ import {
     BsExclamationCircleFill,
     BsBuildingFill,
     BsCashCoin,
-    BsBoxArrowRight
+    BsBoxArrowRight,
+    BsBoxes,
+    BsPeopleFill,
+    BsFillAwardFill
 } from "react-icons/bs";
 import { FaUserCircle, FaHome, FaTint, FaExclamationCircle, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -61,6 +64,21 @@ const menuOptions = [
         name: "मार्केट विभाग",
         icon: BsCashCoin,
         link: "/Market"
+    },
+    {
+        name: "ॲसेट मॅनेजमेंट विभाग",
+        icon: BsBoxes,
+        link: "/Asset"
+    },
+    {
+        name: "समाज कल्याण विभाग",
+        icon: BsPeopleFill,
+        link: "/SocialWelfare"
+    },
+    {
+        name: "लीगल विभाग",
+        icon: BsFillAwardFill,
+        link: "/Legal"
     }
 ];
 const HeaderUserButton = ({ logOut }) => {
@@ -126,7 +144,7 @@ const HeaderUserButton = ({ logOut }) => {
                             )}
                             {ulbName && (
                                 <div className="text-xs text-gray-500 truncate" title={ulbName}>
-                                   ULB Name: {ulbName}
+                                    ULB Name: {ulbName}
                                 </div>
                             )}
                         </div>

@@ -105,6 +105,12 @@ import Market from './Pages/Market/Market.jsx';
 import ApplicationDetails from './Pages/Market/ApplicationDetails.jsx';
 import TrackApplication from './Pages/Market/TrackApplication.jsx';
 import MarketAhwal from './Pages/Market/MarketAhwal.jsx';
+import Asset from './Pages/Asset/Asset.jsx';
+import AssetAhwal from './Pages/Asset/AssetAhwal.jsx';
+import SocialWelfare from './Pages/SocialWelfare/SocialWelfare.jsx';
+import SocialWelfareAhwal from './Pages/SocialWelfare/SocialWelfareAhwal.jsx';
+import Legal from './Pages/Legal/Legal.jsx';
+import LegalAhwal from './Pages/Legal/LegalAhwal.jsx';
 
 function App() {
   return (
@@ -253,6 +259,18 @@ function App() {
             <Route path="/ApplicationDetails" element={<ApplicationDetails />} />
             <Route path="/TrackApplication" element={<TrackApplication />} />
             <Route path="/MarketAhwal" element={<MarketAhwal />} />
+
+            {/* Asset */}
+            <Route path="/Asset" element={<Asset />} />
+            <Route path="/AssetAhwal" element={<AssetAhwal />} />
+
+            {/* Social Welfare */}
+            <Route path="/SocialWelfare" element={<SocialWelfare />} />
+            <Route path="/SocialWelfareAhwal" element={<SocialWelfareAhwal />} />
+
+            {/* Legal */}
+            <Route path="/Legal" element={<Legal />} />
+            <Route path="/LegalAhwal" element={<LegalAhwal />} />
 
           </Routes>
         </ProtectedRoute>
