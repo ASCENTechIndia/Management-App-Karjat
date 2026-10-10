@@ -9,7 +9,11 @@ import {
     BsBoxArrowRight,
     BsBoxes,
     BsPeopleFill,
-    BsFillAwardFill
+    BsFillAwardFill,
+    BsPersonBadge,
+    BsBoxSeam,
+    BsJournalBookmark,
+    BsTrash3
 } from "react-icons/bs";
 import { FaUserCircle, FaHome, FaTint, FaExclamationCircle, FaChevronRight } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
@@ -79,6 +83,26 @@ const menuOptions = [
         name: "लीगल विभाग",
         icon: BsFillAwardFill,
         link: "/Legal"
+    },
+    {
+        name: "एच.आर.एम.एस. विभाग",
+        icon: BsPersonBadge,
+        link: "/Hrms"
+    },
+    {
+        name: "इन्व्हेंटरी विभाग",
+        icon: BsBoxSeam,
+        link: "/Inventory"
+    },
+    {
+        name: "नगरसचिव विभाग",
+        icon: BsJournalBookmark,
+        link: "/MunicipalSecretary"
+    },
+    {
+        name: "घनकचरा व्यवस्थापन विभाग",
+        icon: BsTrash3,
+        link: "/SolidWaste"
     }
 ];
 const HeaderUserButton = ({ logOut }) => {

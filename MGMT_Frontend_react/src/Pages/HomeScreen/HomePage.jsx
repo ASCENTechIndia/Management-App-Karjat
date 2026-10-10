@@ -14,7 +14,11 @@ import {
   BsCurrencyRupee,
   BsBoxes,
   BsPeopleFill,
-  BsFillAwardFill
+  BsFillAwardFill,
+  BsPersonBadge,
+  BsBoxSeam,
+  BsJournalBookmark,
+  BsTrash3
 } from "react-icons/bs";
 import { FaUserCircle, FaHome, FaTint, FaExclamationCircle, FaChevronRight } from "react-icons/fa";
 import "./NewHomeScreenstyles.css";
@@ -118,6 +122,38 @@ const departments = [
     iconBg: "bg-gradient-to-br from-amber-600 to-yellow-400",
     route: "legal"
   },
+  {
+    name: "एच.आर.एम.एस. विभाग",
+    subtitle: "HRMS (Payroll)",
+    icon: BsPersonBadge,
+    border: "border-l-sky-600",
+    iconBg: "bg-gradient-to-br from-sky-600 to-blue-400",
+    route: "hrms"
+  },
+  {
+    name: "इन्व्हेंटरी विभाग",
+    subtitle: "Inventory Department",
+    icon: BsBoxSeam,
+    border: "border-l-amber-700",
+    iconBg: "bg-gradient-to-br from-amber-700 to-orange-400",
+    route: "inventory"
+  },
+  {
+    name: "नगरसचिव विभाग",
+    subtitle: "Municipal Secretary Department",
+    icon: BsJournalBookmark,
+    border: "border-l-emerald-700",
+    iconBg: "bg-gradient-to-br from-emerald-700 to-teal-400",
+    route: "municipal_secretary"
+  },
+  {
+    name: "घनकचरा व्यवस्थापन विभाग",
+    subtitle: "Solid Waste Department",
+    icon: BsTrash3,
+    border: "border-l-green-600",
+    iconBg: "bg-gradient-to-br from-green-600 to-emerald-400",
+    route: "solid_waste"
+  },
 ];
 
 const HomeScreen = () => {
@@ -169,6 +205,14 @@ const HomeScreen = () => {
         navigate("/SocialWelfare");
       } else if (route === "legal") {
         navigate("/Legal");
+      } else if (route === "hrms") {
+        navigate("/Hrms");
+      } else if (route === "inventory") {
+        navigate("/Inventory");
+      } else if (route === "municipal_secretary") {
+        navigate("/MunicipalSecretary");
+      } else if (route === "solid_waste") {
+        navigate("/SolidWaste");
       } else {
         navigate(`/${route}`); // fallback if you want dynamic routes
       }

@@ -111,6 +111,14 @@ import SocialWelfare from './Pages/SocialWelfare/SocialWelfare.jsx';
 import SocialWelfareAhwal from './Pages/SocialWelfare/SocialWelfareAhwal.jsx';
 import Legal from './Pages/Legal/Legal.jsx';
 import LegalAhwal from './Pages/Legal/LegalAhwal.jsx';
+import Hrms from './Pages/Hrms/Hrms.jsx';
+import HrmsAhwal from './Pages/Hrms/HrmsAhwal.jsx';
+import Inventory from './Pages/Inventory/Inventory.jsx';
+import InventoryAhwal from './Pages/Inventory/InventoryAhwal.jsx';
+import MunicipalSecretary from './Pages/MunicipalSecretary/MunicipalSecretary.jsx';
+import MunicipalSecretaryAhwal from './Pages/MunicipalSecretary/MunicipalSecretaryAhwal.jsx';
+import SolidWaste from './Pages/SolidWaste/SolidWaste.jsx';
+import SolidWasteAhwal from './Pages/SolidWaste/SolidWasteAhwal.jsx';
 
 function App() {
   return (
@@ -271,6 +279,22 @@ function App() {
             {/* Legal */}
             <Route path="/Legal" element={<Legal />} />
             <Route path="/LegalAhwal" element={<LegalAhwal />} />
+
+            {/* HRMS */}
+            <Route path="/Hrms" element={<Hrms />} />
+            <Route path="/HrmsAhwal" element={<HrmsAhwal />} />
+
+            {/* Inventory */}
+            <Route path="/Inventory" element={<Inventory />} />
+            <Route path="/InventoryAhwal" element={<InventoryAhwal />} />
+
+            {/* Municipal Secretary */}
+            <Route path="/MunicipalSecretary" element={<MunicipalSecretary />} />
+            <Route path="/MunicipalSecretaryAhwal" element={<MunicipalSecretaryAhwal />} />
+
+            {/* Solid Waste */}
+            <Route path="/SolidWaste" element={<SolidWaste />} />
+            <Route path="/SolidWasteAhwal" element={<SolidWasteAhwal />} />
 
           </Routes>
         </ProtectedRoute>
